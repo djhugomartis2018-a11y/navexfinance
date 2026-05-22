@@ -22,24 +22,69 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
     try {
       if (isSignUp) {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
+          options: {
+            // Desabilita a necessidade de confirmação de email
+            emailRedirectTo: undefined,
+            data: {
+              full_name: '',
+            },
+          },
         });
+
         if (error) throw error;
-        toast.success('Cadastro realizado! Verifique seu e-mail ou faça login.');
-        setIsSignUp(false);
+
+        // Se o usuário foi criado e a sessão está disponível, faz login direto
+        if (data.session) {
+          toast.success('Cadastro realizado com sucesso! Bem-vindo!');
+          onLoginSuccess();
+        } else if (data.user && !data.session) {
+          // Caso o email de confirmação esteja habilitado no Supabase
+          toast.info('Cadastro realizado! Verifique seu e-mail para confirmar a conta, ou tente fazer login.');
+          setIsSignUp(false);
+        }
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
-        if (error) throw error;
-        toast.success('Login realizado com sucesso!');
-        onLoginSuccess();
+
+        if (error) {
+          // Traduzir mensagens de erro comuns para português
+          if (error.message === 'Email not confirmed') {
+            toast.error('E-mail não confirmado. Entre em contato com o suporte ou tente se cadastrar novamente.');
+          } else if (error.message === 'Invalid login credentials') {
+            toast.error('E-mail ou senha incorretos. Verifique suas credenciais.');
+          } else if (error.message === 'User not found') {
+            toast.error('Usuário não encontrado. Verifique o e-mail ou cadastre-se.');
+          } else {
+            toast.error(error.message || 'Erro na autenticação');
+          }
+          return;
+        }
+
+        if (data.session) {
+          toast.success('Login realizado com sucesso!');
+          onLoginSuccess();
+        }
       }
     } catch (error: any) {
-      toast.error(error.message || 'Erro na autenticação');
+      // Traduzir mensagens de erro comuns para português
+      const msg = error?.message || '';
+      if (msg === 'Email not confirmed') {
+        toast.error('E-mail não confirmado. Verifique sua caixa de entrada ou contate o suporte.');
+      } else if (msg === 'Invalid login credentials') {
+        toast.error('E-mail ou senha incorretos.');
+      } else if (msg.includes('Password should be at least')) {
+        toast.error('A senha deve ter pelo menos 6 caracteres.');
+      } else if (msg.includes('already registered') || msg.includes('User already registered')) {
+        toast.error('Este e-mail já está cadastrado. Tente fazer login.');
+        setIsSignUp(false);
+      } else {
+        toast.error(msg || 'Erro na autenticação');
+      }
     } finally {
       setLoading(false);
     }
@@ -53,8 +98,8 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
             {isSignUp ? 'Criar Conta' : '💰 SALÁRIO PRO'}
           </CardTitle>
           <CardDescription className="text-center text-text-dim">
-            {isSignUp 
-              ? 'Preencha os dados para começar sua gestão financeira' 
+            {isSignUp
+              ? 'Preencha os dados para começar sua gestão financeira'
               : 'Entre com suas credenciais para acessar o painel'}
           </CardDescription>
         </CardHeader>
@@ -77,16 +122,18 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
               <Input
                 id="password"
                 type="password"
+                placeholder={isSignUp ? 'Mínimo 6 caracteres' : '••••••••'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                minLength={6}
                 className="bg-background border-border"
               />
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="w-full bg-accent-lime text-black hover:bg-accent-lime/90 font-bold"
               disabled={loading}
             >
