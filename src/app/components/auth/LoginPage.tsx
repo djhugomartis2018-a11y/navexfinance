@@ -134,10 +134,10 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
           <CardFooter className="flex flex-col space-y-4">
             <Button
               type="submit"
-              className="w-full bg-accent-lime text-black hover:bg-accent-lime/90 font-bold"
+              className="w-full bg-[#b4f51d] text-black hover:bg-[#a3e01a] font-bold text-lg h-12 shadow-[0_0_20px_rgba(180,245,29,0.2)]"
               disabled={loading}
             >
-              {loading ? 'Carregando...' : (isSignUp ? 'Cadastrar' : 'Entrar')}
+              {loading ? 'Carregando...' : (isSignUp ? 'REGISTRAR' : 'ENTRAR')}
             </Button>
             <button
               type="button"
