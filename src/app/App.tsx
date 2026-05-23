@@ -1015,7 +1015,7 @@ function MetasPage({ data, updateData }: any) {
     <div className="animate-fadeIn space-y-8">
       <div className="flex justify-between items-center">
         <h3 className="text-2xl font-black tracking-tight">Objetivos Financeiros</h3>
-        <Button onClick={addMeta} className="bg-accent-lime text-black hover:bg-accent-lime/90 font-bold">
+        <Button onClick={addMeta} className="bg-[#00ff41] text-black hover:bg-[#00dd33] font-bold shadow-[0_0_15px_rgba(0,255,65,0.3)]">
           <Plus size={18} className="mr-2" /> Novo Objetivo
         </Button>
       </div>
