@@ -71,13 +71,16 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-20">
+      <section className="py-20 relative">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-black">Como Funciona</h2>
           <p className="text-text-dim">Três passos simples para começar sua jornada financeira</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {/* Linha conectando (desktop) */}
+        <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent-purple/30 to-transparent -translate-y-1/2" />
+
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto relative">
           {[
             {
               step: '01',
@@ -95,10 +98,20 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               description: 'Monitore seu progresso e tome decisões melhores com seus dados.'
             }
           ].map((item, i) => (
-            <div key={i} className="text-center space-y-4">
-              <div className="text-5xl font-black text-accent-purple/30">{item.step}</div>
+            <div
+              key={i}
+              className="group text-center space-y-4 relative z-10 p-6 rounded-2xl border border-border bg-background transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(124,58,237,0.25)]"
+            >
+              {/* ponto na linha */}
+              <div className="hidden md:flex absolute -top-10 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-accent-purple shadow-[0_0_20px_rgba(124,58,237,0.8)]" />
+
+              <div className="text-5xl font-black text-accent-purple/30 group-hover:text-accent-purple/60 transition-colors">
+                {item.step}
+              </div>
               <h4 className="text-xl font-bold">{item.title}</h4>
               <p className="text-text-dim">{item.description}</p>
+
+              <div className="h-1 w-0 bg-accent-purple mx-auto group-hover:w-16 transition-all duration-500 rounded-full" />
             </div>
           ))}
         </div>
