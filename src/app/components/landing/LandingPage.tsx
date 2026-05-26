@@ -283,13 +283,17 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       </section>
 
       {/* Footer */}
-<footer className="border-t border-border bg-surface/30 py-8 px-4 sm:px-6 lg:px-8">
-  <div className="max-w-7xl mx-auto">
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-      <img src="/logobranca.png" alt="NAVEX Finance" className="h-10 w-auto" />
-      <p className="text-sm text-text-dim">
-        © 2026 NAVEX Finance. Todos os direitos reservados.
-      </p>
+      <footer className="border-t border-border bg-surface/30 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <img src="/logobranca.png" alt="NAVEX Finance" className="h-10 w-auto" />
+            <p className="text-sm text-text-dim">
+              © 2026 NAVEX Finance. Todos os direitos reservados.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
-  </div>
-</footer>
+  );
+}
+
