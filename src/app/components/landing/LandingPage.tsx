@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ChevronRight, TrendingUp, Target, Wallet, BarChart3, Lock, Zap, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
 import { Button } from '../ui/button';
+import { PricingSection } from '../ui/pricing';
 
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -8,7 +9,6 @@ interface LandingPageProps {
 
 export function LandingPage({ onGetStarted }: LandingPageProps) {
   const [activeFeature, setActiveFeature] = useState(0);
-  const [hoveredPlan, setHoveredPlan] = useState<string | null>(null);
 
   const features = [
     {
@@ -49,11 +49,13 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
     }
   ];
 
-  const plans = [
+  const pricingPlans = [
     {
       id: 'basic',
       name: 'Básico',
-      price: 'Grátis',
+      price: '0',
+      yearlyPrice: '0',
+      period: 'mês',
       description: 'Perfeito para começar',
       features: [
         'Até 2 contas',
@@ -61,14 +63,16 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         'Visão mensal',
         'Suporte por email'
       ],
-      cta: 'Começar',
-      highlighted: false
+      buttonText: 'Começar',
+      href: '#',
+      isPopular: false
     },
     {
       id: 'essential',
       name: 'Essencial',
-      price: 'R$ 19',
-      period: '/mês',
+      price: '19',
+      yearlyPrice: '15',
+      period: 'mês',
       description: 'Mais controle, mais liberdade',
       features: [
         'Lançamentos ilimitados',
@@ -77,14 +81,16 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         'Exportação de dados',
         'Suporte prioritário'
       ],
-      cta: 'Assinar',
-      highlighted: true
+      buttonText: 'Assinar',
+      href: '#',
+      isPopular: true
     },
     {
       id: 'pro',
       name: 'Pro',
-      price: 'R$ 39',
-      period: '/mês',
+      price: '39',
+      yearlyPrice: '31',
+      period: 'mês',
       description: 'Controle financeiro total',
       features: [
         'Metas financeiras avançadas',
@@ -94,8 +100,9 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         'Análise preditiva',
         'Suporte 24/7'
       ],
-      cta: 'Assinar',
-      highlighted: false
+      buttonText: 'Assinar',
+      href: '#',
+      isPopular: false
     }
   ];
 
@@ -258,87 +265,13 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="relative py-24 px-4 border-t border-border/50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black mb-4">
-              Planos e Preços
-            </h2>
-            <p className="text-lg text-text-dim max-w-2xl mx-auto">
-              Escolha o plano ideal para suas necessidades financeiras.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {plans.map((plan) => (
-              <div
-                key={plan.id}
-                className={`relative group rounded-2xl transition-all duration-300 ${
-                  plan.highlighted
-                    ? 'md:scale-105 border-2 border-accent-lime bg-gradient-to-br from-background via-accent-lime/5 to-background shadow-[0_0_40px_rgba(218,235,68,0.2)]'
-                    : 'border border-border bg-gradient-to-br from-background to-background/50 hover:border-accent-lime/50 hover:shadow-[0_0_30px_rgba(218,235,68,0.1)]'
-                }`}
-                onMouseEnter={() => setHoveredPlan(plan.id)}
-                onMouseLeave={() => setHoveredPlan(null)}
-              >
-                {/* Badge for highlighted plan */}
-                {plan.highlighted && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-accent-lime to-accent-purple text-background font-bold text-sm">
-                    Mais Popular
-                  </div>
-                )}
-
-                <div className="p-8 space-y-6">
-                  {/* Plan Header */}
-                  <div>
-                    <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                    <p className="text-text-dim text-sm">{plan.description}</p>
-                  </div>
-
-                  {/* Price */}
-                  <div className="space-y-2">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-5xl font-black bg-gradient-to-r from-accent-purple to-accent-lime bg-clip-text text-transparent">
-                        {plan.price}
-                      </span>
-                      {plan.period && (
-                        <span className="text-text-dim">{plan.period}</span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Features List */}
-                  <ul className="space-y-3">
-                    {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
-                        <CheckCircle2 size={20} className="text-accent-lime flex-shrink-0 mt-0.5" />
-                        <span className="text-text-dim">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* CTA Button */}
-                  <Button
-                    onClick={onGetStarted}
-                    className={`w-full h-12 font-bold text-lg rounded-xl transition-all duration-300 ${
-                      plan.highlighted
-                        ? 'bg-gradient-to-r from-accent-purple to-accent-purple/80 text-white hover:from-accent-purple/90 hover:to-accent-purple/70 shadow-[0_0_30px_rgba(100,12,199,0.4)]'
-                        : 'border-2 border-accent-lime text-accent-lime hover:bg-accent-lime/10'
-                    }`}
-                  >
-                    {plan.cta}
-                  </Button>
-                </div>
-
-                {/* Hover effect line */}
-                {plan.highlighted && (
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-accent-lime/0 via-accent-lime/5 to-accent-lime/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* Pricing Section with Interactive Component */}
+      <section className="relative border-t border-border/50">
+        <PricingSection 
+          plans={pricingPlans}
+          title="Planos e Preços"
+          description="Escolha o plano ideal para suas necessidades financeiras."
+        />
       </section>
 
       {/* CTA Section */}
