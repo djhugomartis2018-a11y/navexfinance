@@ -26,7 +26,6 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
           email,
           password,
           options: {
-            // Desabilita a necessidade de confirmação de email
             emailRedirectTo: undefined,
             data: {
               full_name: '',
@@ -36,12 +35,10 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
         if (error) throw error;
 
-        // Se o usuário foi criado e a sessão está disponível, faz login direto
         if (data.session) {
           toast.success('Cadastro realizado com sucesso! Bem-vindo!');
           onLoginSuccess();
         } else if (data.user && !data.session) {
-          // Caso o email de confirmação esteja habilitado no Supabase
           toast.info('Cadastro realizado! Verifique seu e-mail para confirmar a conta, ou tente fazer login.');
           setIsSignUp(false);
         }
@@ -52,7 +49,6 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
         });
 
         if (error) {
-          // Traduzir mensagens de erro comuns para português
           if (error.message === 'Email not confirmed') {
             toast.error('E-mail não confirmado. Entre em contato com o suporte ou tente se cadastrar novamente.');
           } else if (error.message === 'Invalid login credentials') {
@@ -71,7 +67,6 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
         }
       }
     } catch (error: any) {
-      // Traduzir mensagens de erro comuns para português
       const msg = error?.message || '';
       if (msg === 'Email not confirmed') {
         toast.error('E-mail não confirmado. Verifique sua caixa de entrada ou contate o suporte.');
@@ -98,9 +93,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
       <Card className="w-full max-w-md border-border bg-surface relative z-10">
         <CardHeader className="space-y-1">
           <div className="flex justify-center mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-accent-purple to-accent-purple/70 rounded-xl flex items-center justify-center shadow-lg shadow-accent-purple/30">
-              <span className="text-white font-black text-xl">N</span>
-            </div>
+            <img src="/logobranca.svg" alt="NAVEX Finance" className="h-12 w-auto" />
           </div>
           <CardTitle className="text-2xl font-bold text-center">
             {isSignUp ? 'Criar Conta' : 'NAVEX FINANCE'}
