@@ -70,6 +70,40 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         </div>
       </section>
 
+      {/* HOW IT WORKS */}
+      <section className="py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-black">Como Funciona</h2>
+          <p className="text-text-dim">Três passos simples para começar sua jornada financeira</p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {[
+            {
+              step: '01',
+              title: 'Crie sua Conta',
+              description: 'Registre-se com seu e-mail e crie uma senha segura em segundos.'
+            },
+            {
+              step: '02',
+              title: 'Configure seus Dados',
+              description: 'Adicione suas receitas, despesas e metas financeiras personalizadas.'
+            },
+            {
+              step: '03',
+              title: 'Acompanhe e Evolua',
+              description: 'Monitore seu progresso e tome decisões melhores com seus dados.'
+            }
+          ].map((item, i) => (
+            <div key={i} className="text-center space-y-4">
+              <div className="text-5xl font-black text-accent-purple/30">{item.step}</div>
+              <h4 className="text-xl font-bold">{item.title}</h4>
+              <p className="text-text-dim">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* PRICING SECTION */}
       <section className="py-20 border-t border-border">
         <div className="text-center mb-12">
@@ -88,9 +122,9 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               <li>50 lançamentos/mês</li>
               <li>Visão mensal</li>
             </ul>
-            <Button className="mt-6 w-full" onClick={onGetStarted}>
+            <button className="mt-6 w-full py-2 bg-accent-purple text-white rounded-lg" onClick={onGetStarted}>
               Começar
-            </Button>
+            </button>
           </div>
 
           {/* ESSENCIAL */}
@@ -103,9 +137,9 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               <li>Relatórios simples</li>
               <li>Exportação</li>
             </ul>
-            <Button className="mt-6 w-full" onClick={onGetStarted}>
+            <button className="mt-6 w-full py-2 bg-accent-purple text-white rounded-lg" onClick={onGetStarted}>
               Assinar
-            </Button>
+            </button>
           </div>
 
           {/* PRO */}
@@ -118,9 +152,9 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               <li>Comparação de meses</li>
               <li>Dashboard avançado</li>
             </ul>
-            <Button className="mt-6 w-full" onClick={onGetStarted}>
+            <button className="mt-6 w-full py-2 bg-accent-purple text-white rounded-lg" onClick={onGetStarted}>
               Assinar
-            </Button>
+            </button>
           </div>
 
         </div>
