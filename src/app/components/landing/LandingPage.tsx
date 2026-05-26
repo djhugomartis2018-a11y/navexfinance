@@ -54,17 +54,17 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-accent-lime rounded-xl flex items-center justify-center shadow-lg shadow-accent-lime/20">
-              <Wallet className="text-black w-6 h-6" />
+            <div className="w-10 h-10 bg-gradient-to-br from-accent-purple to-accent-purple/70 rounded-xl flex items-center justify-center shadow-lg shadow-accent-purple/30">
+              <span className="text-white font-black text-lg">N</span>
             </div>
             <div>
-              <h1 className="text-lg font-black tracking-tighter leading-none">SALÁRIO PRO</h1>
-              <p className="text-[10px] text-text-dim font-bold uppercase tracking-widest">Premium Finance</p>
+              <h1 className="text-lg font-black tracking-tighter leading-none bg-gradient-to-r from-accent-purple to-accent-lime bg-clip-text text-transparent">NAVEX FINANCE</h1>
+              <p className="text-[10px] text-text-dim font-bold uppercase tracking-widest">Gestão Inteligente</p>
             </div>
           </div>
           <Button
             onClick={onGetStarted}
-            className="bg-accent-lime text-white hover:bg-[#00dd33] font-bold shadow-lg shadow-accent-lime/30 transition-all duration-300"
+            className="bg-accent-purple hover:bg-accent-purple/90 text-white font-bold shadow-lg shadow-accent-purple/30 transition-all duration-300"
           >
             Acessar Agora
           </Button>
@@ -74,13 +74,13 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-accent-lime/5 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-accent-purple/5 via-transparent to-transparent pointer-events-none" />
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center space-y-8">
             <div className="space-y-4">
               <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter leading-tight">
-                Controle Seu <span className="text-accent-lime">Dinheiro</span> com Precisão
+                Controle Seu <span className="bg-gradient-to-r from-accent-purple to-accent-lime bg-clip-text text-transparent">Dinheiro</span> com Precisão
               </h2>
               <p className="text-xl text-text-dim max-w-2xl mx-auto leading-relaxed">
                 Gerencie suas finanças pessoais de forma inteligente. Dashboard completo, análises detalhadas e metas ao seu alcance.
@@ -90,7 +90,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Button
                 onClick={onGetStarted}
-                className="bg-[#00ff41] text-white hover:bg-[#00dd33] font-black text-lg h-14 px-8 shadow-[0_0_40px_rgba(0,255,65,0.5)] transition-all duration-300 group"
+                className="bg-gradient-to-r from-accent-purple to-accent-purple/80 text-white hover:from-accent-purple/90 hover:to-accent-purple/70 font-black text-lg h-14 px-8 shadow-[0_0_40px_rgba(124,58,237,0.5)] transition-all duration-300 group"
               >
                 Começar Agora
                 <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" size={24} />
@@ -108,7 +108,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             <div className="grid grid-cols-3 gap-4 pt-8 border-t border-border/50">
               {stats.map((stat, i) => (
                 <div key={i} className="space-y-2">
-                  <p className="text-3xl font-black text-accent-lime">{stat.number}</p>
+                  <p className="text-3xl font-black bg-gradient-to-r from-accent-purple to-accent-lime bg-clip-text text-transparent">{stat.number}</p>
                   <p className="text-sm text-text-dim">{stat.label}</p>
                 </div>
               ))}
@@ -133,11 +133,11 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               return (
                 <div
                   key={i}
-                  className="group p-6 rounded-2xl border border-border bg-background hover:border-accent-lime/50 hover:bg-surface/50 transition-all duration-300 cursor-pointer"
+                  className="group p-6 rounded-2xl border border-border bg-background hover:border-accent-purple/50 hover:bg-surface/50 transition-all duration-300 cursor-pointer"
                   onMouseEnter={() => setActiveFeature(i)}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-accent-lime/10 flex items-center justify-center mb-4 group-hover:bg-accent-lime/20 transition-colors">
-                    <Icon className="text-accent-lime" size={24} />
+                  <div className="w-12 h-12 rounded-xl bg-accent-purple/10 flex items-center justify-center mb-4 group-hover:bg-accent-purple/20 transition-colors">
+                    <Icon className="text-accent-purple" size={24} />
                   </div>
                   <h4 className="text-lg font-bold mb-2">{feature.title}</h4>
                   <p className="text-text-dim text-sm leading-relaxed">{feature.description}</p>
@@ -176,12 +176,12 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             ].map((item, i) => (
               <div key={i} className="relative">
                 <div className="text-center space-y-4">
-                  <div className="text-5xl font-black text-accent-lime/30 mb-4">{item.step}</div>
+                  <div className="text-5xl font-black text-accent-purple/30 mb-4">{item.step}</div>
                   <h4 className="text-xl font-bold">{item.title}</h4>
                   <p className="text-text-dim">{item.description}</p>
                 </div>
                 {i < 2 && (
-                  <div className="hidden md:flex absolute top-1/2 -right-4 -translate-y-1/2 text-accent-lime/30">
+                  <div className="hidden md:flex absolute top-1/2 -right-4 -translate-y-1/2 text-accent-purple/30">
                     <ChevronRight size={32} />
                   </div>
                 )}
@@ -198,7 +198,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             <div className="space-y-8">
               <div>
                 <h3 className="text-4xl sm:text-5xl font-black tracking-tighter mb-4">
-                  Por que escolher o Salário Pro?
+                  Por que escolher a NAVEX Finance?
                 </h3>
                 <p className="text-text-dim text-lg">
                   Desenvolvido com foco em usabilidade, segurança e performance para oferecer a melhor experiência.
@@ -214,8 +214,8 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
                   'Totalmente gratuito e sem taxas ocultas'
                 ].map((benefit, i) => (
                   <div key={i} className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-accent-lime/20 flex items-center justify-center flex-shrink-0 mt-1">
-                      <div className="w-2 h-2 rounded-full bg-accent-lime" />
+                    <div className="w-6 h-6 rounded-full bg-accent-purple/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <div className="w-2 h-2 rounded-full bg-accent-purple" />
                     </div>
                     <p className="text-text-dim">{benefit}</p>
                   </div>
@@ -224,7 +224,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             </div>
 
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-lime/10 to-transparent rounded-2xl blur-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/10 to-transparent rounded-2xl blur-3xl" />
               <div className="relative bg-surface/50 border border-border rounded-2xl p-8 space-y-6">
                 <div className="space-y-2">
                   <p className="text-sm text-text-dim uppercase tracking-widest font-bold">Seu Dashboard</p>
@@ -232,11 +232,11 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
                 </div>
                 <div className="space-y-3">
                   <div className="h-2 bg-border rounded-full overflow-hidden">
-                    <div className="h-full w-3/4 bg-accent-lime rounded-full" />
+                    <div className="h-full w-3/4 bg-accent-purple rounded-full" />
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-text-dim">Receitas</span>
-                    <span className="text-accent-lime font-bold">R$ 5.200,00</span>
+                    <span className="text-accent-purple font-bold">R$ 5.200,00</span>
                   </div>
                 </div>
                 <div className="space-y-3">
@@ -251,7 +251,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
                 <div className="pt-4 border-t border-border">
                   <div className="flex justify-between items-center">
                     <span className="text-text-dim">Saldo</span>
-                    <span className="text-2xl font-black text-accent-lime">R$ 2.600,00</span>
+                    <span className="text-2xl font-black text-accent-purple">R$ 2.600,00</span>
                   </div>
                 </div>
               </div>
@@ -274,7 +274,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
 
           <Button
             onClick={onGetStarted}
-            className="bg-[#00ff41] text-white hover:bg-[#00dd33] font-black text-xl h-16 px-12 shadow-[0_0_50px_rgba(0,255,65,0.6)] transition-all duration-300 group inline-flex items-center gap-3"
+            className="bg-gradient-to-r from-accent-purple to-accent-purple/80 text-white hover:from-accent-purple/90 hover:to-accent-purple/70 font-black text-xl h-16 px-12 shadow-[0_0_50px_rgba(124,58,237,0.6)] transition-all duration-300 group inline-flex items-center gap-3"
           >
             Acessar Agora
             <ArrowRight className="group-hover:translate-x-2 transition-transform" size={28} />
@@ -287,13 +287,13 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-accent-lime rounded-lg flex items-center justify-center">
-                <Wallet className="text-black w-5 h-5" />
+              <div className="w-8 h-8 bg-gradient-to-br from-accent-purple to-accent-purple/70 rounded-lg flex items-center justify-center">
+                <span className="text-white font-black text-sm">N</span>
               </div>
-              <span className="font-bold">Salário Pro</span>
+              <span className="font-bold">NAVEX Finance</span>
             </div>
             <p className="text-sm text-text-dim">
-              © 2024 Salário Pro. Todos os direitos reservados.
+              © 2024 NAVEX Finance. Todos os direitos reservados.
             </p>
           </div>
         </div>

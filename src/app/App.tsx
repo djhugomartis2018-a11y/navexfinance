@@ -327,16 +327,16 @@ export default function App() {
   return (
     <SidebarProvider>
       <Toaster richColors position="top-right" />
-      <div className="flex w-full min-h-screen bg-background text-foreground selection:bg-accent-lime/30">
+      <div className="flex w-full min-h-screen bg-background text-foreground selection:bg-accent-purple/30">
         <Sidebar className="border-r border-border" collapsible={isMobile ? "icon" : "none"}>
           <SidebarHeader className="px-6 py-8">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-accent-lime rounded-xl flex items-center justify-center shadow-lg shadow-accent-lime/20">
-                <Wallet className="text-black w-6 h-6" />
+              <div className="w-10 h-10 bg-gradient-to-br from-accent-purple to-accent-purple/70 rounded-xl flex items-center justify-center shadow-lg shadow-accent-purple/30">
+                <span className="text-white font-black text-lg">N</span>
               </div>
               <div>
-                <h1 className="text-lg font-black tracking-tighter leading-none">SALÁRIO PRO</h1>
-                <p className="text-[10px] text-text-dim font-bold uppercase tracking-widest mt-1">Premium Finance</p>
+                <h1 className="text-lg font-black tracking-tighter leading-none bg-gradient-to-r from-accent-purple to-accent-lime bg-clip-text text-transparent">NAVEX FINANCE</h1>
+                <p className="text-[10px] text-text-dim font-bold uppercase tracking-widest mt-1">Gestão Inteligente</p>
               </div>
             </div>
           </SidebarHeader>
@@ -348,19 +348,19 @@ export default function App() {
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton isActive={currentPage === 'overview'} onClick={() => showPage('overview')}>
-                      <LayoutGrid size={20} className={currentPage === 'overview' ? "text-accent-lime" : ""} />
+                      <LayoutGrid size={20} className={currentPage === 'overview' ? "text-accent-purple" : ""} />
                       <span className="font-bold">Dashboard</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton isActive={currentPage === 'historico'} onClick={() => showPage('historico')}>
-                      <TrendingUp size={20} className={currentPage === 'historico' ? "text-accent-lime" : ""} />
+                      <TrendingUp size={20} className={currentPage === 'historico' ? "text-accent-purple" : ""} />
                       <span className="font-bold">Análise</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton isActive={currentPage === 'metas'} onClick={() => showPage('metas')}>
-                      <Target size={20} className={currentPage === 'metas' ? "text-accent-lime" : ""} />
+                      <Target size={20} className={currentPage === 'metas' ? "text-accent-purple" : ""} />
                       <span className="font-bold">Objetivos</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -381,7 +381,7 @@ export default function App() {
                           className="group/month flex items-center justify-between"
                         >
                           <div className="flex items-center gap-3">
-                            <Calendar size={16} className={m === currentMonth ? "text-accent-lime" : "text-text-dark"} />
+                            <Calendar size={16} className={m === currentMonth ? "text-accent-purple" : "text-text-dark"} />
                             <span className="font-medium">{m}</span>
                           </div>
                           <button
@@ -410,20 +410,20 @@ export default function App() {
                   placeholder="Novo mês (Ex: Jul/25)"
                   className="bg-background border-border h-10 pr-10 font-medium"
                 />
-                <button onClick={addMonth} className="absolute right-2 top-1/2 -translate-y-1/2 text-accent-lime hover:scale-110 transition-transform">
+                <button onClick={addMonth} className="absolute right-2 top-1/2 -translate-y-1/2 text-accent-purple hover:scale-110 transition-transform">
                   <Plus size={20} />
                 </button>
               </div>
               
               <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-hover transition-colors cursor-pointer group" onClick={() => showPage('perfil')}>
-                <div className="w-8 h-8 rounded-full bg-surface-hover border border-border flex items-center justify-center group-hover:border-accent-lime/50 transition-colors">
-                  <User size={16} className="text-text-dim group-hover:text-accent-lime" />
+                <div className="w-8 h-8 rounded-full bg-surface-hover border border-border flex items-center justify-center group-hover:border-accent-purple/50 transition-colors">
+                  <User size={16} className="text-text-dim group-hover:text-accent-purple" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-bold truncate">Minha Conta</p>
                   <p className="text-[10px] text-text-dim truncate">{session.user.email}</p>
                 </div>
-                {isSyncing && <div className="w-2 h-2 bg-accent-lime rounded-full animate-pulse" />}
+                {isSyncing && <div className="w-2 h-2 bg-accent-purple rounded-full animate-pulse" />}
               </div>
             </div>
           </SidebarFooter>
@@ -444,7 +444,7 @@ export default function App() {
             </div>
             
             <div className="flex items-center gap-3">
-              {isSyncing && <span className="text-[10px] font-bold text-accent-lime animate-pulse hidden md:block">SINCRONIZANDO...</span>}
+              {isSyncing && <span className="text-[10px] font-bold text-accent-purple animate-pulse hidden md:block">SINCRONIZANDO...</span>}
               <Button variant="ghost" size="icon" onClick={() => supabase.auth.signOut()} className="text-text-dark hover:text-red-500">
                 <LogOut size={18} />
               </Button>
@@ -475,21 +475,21 @@ export default function App() {
 // COMPONENTES DE APOIO MELHORADOS
 function StatCard({ label, value, icon: Icon, color, trend }: any) {
   const colors: any = {
-    lime: 'bg-accent-lime/10 text-accent-lime border-accent-lime/20',
+    lime: 'bg-accent-purple/10 text-accent-purple border-accent-purple/20',
     blue: 'bg-blue-bg text-blue border-blue-bg',
     red: 'bg-red-bg text-red border-red-bg',
     dim: 'bg-surface text-text-dim border-border'
   };
 
   return (
-    <ShadcnCard className="bg-surface border-border overflow-hidden hover:border-accent-lime/30 transition-all group">
+    <ShadcnCard className="bg-surface border-border overflow-hidden hover:border-accent-purple/30 transition-all group">
       <CardContent className="p-6">
         <div className="flex justify-between items-start mb-4">
           <div className={`p-2 rounded-lg ${colors[color] || colors.dim}`}>
             <Icon size={20} />
           </div>
           {trend && (
-            <span className={`text-[10px] font-black px-2 py-1 rounded-full ${trend > 0 ? 'bg-accent-lime/10 text-accent-lime' : 'bg-red-bg text-red'}`}>
+            <span className={`text-[10px] font-black px-2 py-1 rounded-full ${trend > 0 ? 'bg-accent-purple/10 text-accent-purple' : 'bg-red-bg text-red'}`}>
               {trend > 0 ? '+' : ''}{trend}%
             </span>
           )}
@@ -552,7 +552,7 @@ function OverviewPage({ data, openMonth }: { data: AppData; openMonth: (m: strin
           <CardHeader className="px-0 pt-0 flex flex-row items-center justify-between">
             <CardTitle className="text-lg font-bold">Evolução Financeira</CardTitle>
             <div className="flex gap-4 text-[10px] font-bold">
-              <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-accent-lime" /> ENTRADAS</div>
+              <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-accent-purple" /> ENTRADAS</div>
               <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-red-500" /> SAÍDAS</div>
             </div>
           </CardHeader>
@@ -581,13 +581,13 @@ function OverviewPage({ data, openMonth }: { data: AppData; openMonth: (m: strin
               <div 
                 key={m.mes} 
                 onClick={() => openMonth(m.mes)}
-                className="flex items-center justify-between p-3 rounded-xl bg-background border border-border hover:border-accent-lime/30 cursor-pointer transition-all group"
+                className="flex items-center justify-between p-3 rounded-xl bg-background border border-border hover:border-accent-purple/30 cursor-pointer transition-all group"
               >
                 <div>
                   <p className="text-sm font-bold">{m.mes}</p>
                   <p className="text-[10px] text-text-dim">Saldo: {fmt(m.saldo)}</p>
                 </div>
-                <ChevronRight size={16} className="text-text-dark group-hover:text-accent-lime group-hover:translate-x-1 transition-all" />
+                <ChevronRight size={16} className="text-text-dark group-hover:text-accent-purple group-hover:translate-x-1 transition-all" />
               </div>
             ))}
           </div>
@@ -611,7 +611,7 @@ function MesPage({ data, currentMonth, currentTab, setCurrentTab, updateData }: 
         <div className="flex bg-surface p-1 rounded-xl border border-border">
           <div className="px-4 py-2 text-center border-r border-border">
             <p className="text-[10px] font-black text-text-dark uppercase tracking-widest">Saldo</p>
-            <p className={`text-sm font-bold ${calc.saldo >= 0 ? 'text-accent-lime' : 'text-red-500'}`}>{fmt(calc.saldo)}</p>
+            <p className={`text-sm font-bold ${calc.saldo >= 0 ? 'text-accent-purple' : 'text-red-500'}`}>{fmt(calc.saldo)}</p>
           </div>
           <div className="px-4 py-2 text-center">
             <p className="text-[10px] font-black text-text-dark uppercase tracking-widest">Economia</p>
@@ -622,10 +622,10 @@ function MesPage({ data, currentMonth, currentTab, setCurrentTab, updateData }: 
 
       <Tabs value={currentTab} onValueChange={setCurrentTab} className="space-y-6">
         <TabsList className="bg-surface border border-border p-1 h-auto grid grid-cols-2 md:grid-cols-4 gap-1">
-          <TabsTrigger value="resumo" className="py-2.5 font-bold data-[state=active]:bg-background data-[state=active]:text-accent-lime">Resumo</TabsTrigger>
-          <TabsTrigger value="receitas" className="py-2.5 font-bold data-[state=active]:bg-background data-[state=active]:text-accent-lime">Receitas</TabsTrigger>
-          <TabsTrigger value="despesas" className="py-2.5 font-bold data-[state=active]:bg-background data-[state=active]:text-accent-lime">Despesas</TabsTrigger>
-          <TabsTrigger value="graficos" className="py-2.5 font-bold data-[state=active]:bg-background data-[state=active]:text-accent-lime">Gráficos</TabsTrigger>
+          <TabsTrigger value="resumo" className="py-2.5 font-bold data-[state=active]:bg-background data-[state=active]:text-accent-purple">Resumo</TabsTrigger>
+          <TabsTrigger value="receitas" className="py-2.5 font-bold data-[state=active]:bg-background data-[state=active]:text-accent-purple">Receitas</TabsTrigger>
+          <TabsTrigger value="despesas" className="py-2.5 font-bold data-[state=active]:bg-background data-[state=active]:text-accent-purple">Despesas</TabsTrigger>
+          <TabsTrigger value="graficos" className="py-2.5 font-bold data-[state=active]:bg-background data-[state=active]:text-accent-purple">Gráficos</TabsTrigger>
         </TabsList>
 
         <TabsContent value="resumo" className="mt-0">
@@ -670,7 +670,7 @@ function ResumoTab({ data, currentMonth, calc, updateData }: any) {
       <ShadcnCard className="bg-surface border-border overflow-hidden">
         <CardHeader className="border-b border-border bg-sidebar-accent/20 px-6 py-4">
           <CardTitle className="text-sm font-black uppercase tracking-widest flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-accent-lime animate-pulse" />
+            <div className="w-2 h-2 rounded-full bg-accent-purple animate-pulse" />
             Contas Pendentes
           </CardTitle>
         </CardHeader>
@@ -699,7 +699,7 @@ function ResumoTab({ data, currentMonth, calc, updateData }: any) {
                           type="checkbox"
                           checked={f.pago}
                           onChange={(e) => togglePago(actualIdx, e.target.checked)}
-                          className="w-5 h-5 rounded-md border-border bg-background checked:bg-accent-lime cursor-pointer transition-all accent-accent-lime"
+                          className="w-5 h-5 rounded-md border-border bg-background checked:bg-accent-purple cursor-pointer transition-all accent-accent-purple"
                         />
                       </TableCell>
                     </TableRow>
@@ -749,7 +749,7 @@ function ReceitasTab({ data, currentMonth, calc, updateData }: any) {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-bold">Gestão de Entradas</h3>
-        <Button onClick={addReceita} className="bg-accent-lime text-black hover:bg-accent-lime/90 font-bold">
+        <Button onClick={addReceita} className="bg-accent-purple text-white hover:bg-accent-purple/90 font-bold">
           <Plus size={18} className="mr-2" /> Adicionar
         </Button>
       </div>
@@ -770,7 +770,7 @@ function ReceitasTab({ data, currentMonth, calc, updateData }: any) {
                     type="text"
                     value={r.desc}
                     onChange={(e) => updateReceita(i, 'desc', e.target.value)}
-                    className="bg-transparent border-none text-foreground w-full focus:ring-1 focus:ring-accent-lime/30 rounded px-2 py-1 font-medium"
+                    className="bg-transparent border-none text-foreground w-full focus:ring-1 focus:ring-accent-purple/30 rounded px-2 py-1 font-medium"
                   />
                 </TableCell>
                 <TableCell>
@@ -778,7 +778,7 @@ function ReceitasTab({ data, currentMonth, calc, updateData }: any) {
                     type="number"
                     value={r.val || ''}
                     onChange={(e) => updateReceita(i, 'val', e.target.value)}
-                    className="bg-transparent border-none text-foreground text-right w-full focus:ring-1 focus:ring-accent-lime/30 rounded px-2 py-1 font-bold text-blue"
+                    className="bg-transparent border-none text-foreground text-right w-full focus:ring-1 focus:ring-accent-purple/30 rounded px-2 py-1 font-bold text-blue"
                   />
                 </TableCell>
                 <TableCell className="text-center">
@@ -849,7 +849,7 @@ function DespesasTab({ data, currentMonth, updateData }: any) {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h3 className="text-lg font-bold">Custos Fixos</h3>
-          <Button onClick={addFixa} variant="outline" size="sm" className="border-border hover:border-accent-lime/50">
+          <Button onClick={addFixa} variant="outline" size="sm" className="border-border hover:border-accent-purple/50">
             <Plus size={16} className="mr-2" /> Fixa
           </Button>
         </div>
@@ -880,7 +880,7 @@ function DespesasTab({ data, currentMonth, updateData }: any) {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h3 className="text-lg font-bold">Custos Variáveis</h3>
-          <Button onClick={addVariavel} variant="outline" size="sm" className="border-border hover:border-accent-lime/50">
+          <Button onClick={addVariavel} variant="outline" size="sm" className="border-border hover:border-accent-purple/50">
             <Plus size={16} className="mr-2" /> Variável
           </Button>
         </div>
@@ -942,8 +942,8 @@ function GraficosTab({ data, currentMonth, calc }: any) {
               <span className="text-sm font-black">{fmt(variaveis)}</span>
             </div>
             <div className="flex justify-between items-center pt-3 border-t border-border">
-              <span className="text-sm font-bold flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-accent-lime" /> Saldo</span>
-              <span className="text-sm font-black text-accent-lime">{fmt(calc.saldo)}</span>
+              <span className="text-sm font-bold flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-accent-purple" /> Saldo</span>
+              <span className="text-sm font-black text-accent-purple">{fmt(calc.saldo)}</span>
             </div>
           </div>
         </div>
@@ -964,10 +964,10 @@ function HistoricoPage({ data, openMonth }: any) {
           <div 
             key={m.mes} 
             onClick={() => openMonth(m.mes)}
-            className="p-4 rounded-2xl bg-surface border border-border hover:border-accent-lime/30 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
+            className="p-4 rounded-2xl bg-surface border border-border hover:border-accent-purple/30 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
           >
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-background border border-border flex items-center justify-center font-black text-accent-lime">
+              <div className="w-12 h-12 rounded-xl bg-background border border-border flex items-center justify-center font-black text-accent-purple">
                 {m.mes.split('/')[0]}
               </div>
               <div>
@@ -986,9 +986,9 @@ function HistoricoPage({ data, openMonth }: any) {
               </div>
               <div className="text-right min-w-[100px]">
                 <p className="text-[10px] font-black text-text-dark uppercase">Saldo</p>
-                <p className="text-sm font-black text-accent-lime">{fmt(m.saldo)}</p>
+                <p className="text-sm font-black text-accent-purple">{fmt(m.saldo)}</p>
               </div>
-              <ChevronRight size={20} className="text-text-dark group-hover:text-accent-lime group-hover:translate-x-1 transition-all" />
+              <ChevronRight size={20} className="text-text-dark group-hover:text-accent-purple group-hover:translate-x-1 transition-all" />
             </div>
           </div>
         ))}
@@ -1025,7 +1025,7 @@ function MetasPage({ data, updateData }: any) {
     <div className="animate-fadeIn space-y-8">
       <div className="flex justify-between items-center">
         <h3 className="text-2xl font-black tracking-tight">Objetivos Financeiros</h3>
-        <Button onClick={addMeta} className="bg-[#00ff41] text-black hover:bg-[#00dd33] font-bold shadow-[0_0_15px_rgba(0,255,65,0.3)]">
+        <Button onClick={addMeta} className="bg-accent-purple text-white hover:bg-accent-purple/90 font-bold shadow-[0_0_15px_rgba(124,58,237,0.3)]">
           <Plus size={18} className="mr-2" /> Novo Objetivo
         </Button>
       </div>
@@ -1034,7 +1034,7 @@ function MetasPage({ data, updateData }: any) {
         {data.metas.map((m: Meta, i: number) => {
           const perc = m.total ? Math.min(100, (m.guardei / m.total) * 100) : 0;
           return (
-            <ShadcnCard key={i} className="bg-surface border-border p-6 hover:border-accent-lime/30 transition-all">
+            <ShadcnCard key={i} className="bg-surface border-border p-6 hover:border-accent-purple/30 transition-all">
               <div className="flex justify-between items-start mb-6">
                 <input 
                   value={m.desc} 
@@ -1063,7 +1063,7 @@ function MetasPage({ data, updateData }: any) {
                       type="number" 
                       value={m.guardei || ''} 
                       onChange={e => updateMeta(i, 'guardei', e.target.value)}
-                      className="bg-background border border-border rounded-lg px-3 py-2 w-full font-bold text-sm text-accent-lime"
+                      className="bg-background border border-border rounded-lg px-3 py-2 w-full font-bold text-sm text-accent-purple"
                     />
                   </div>
                 </div>
@@ -1071,11 +1071,11 @@ function MetasPage({ data, updateData }: any) {
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs font-black uppercase tracking-widest">
                     <span className="text-text-dim">Progresso</span>
-                    <span className="text-accent-lime">{perc.toFixed(1)}%</span>
+                    <span className="text-accent-purple">{perc.toFixed(1)}%</span>
                   </div>
                   <div className="h-3 bg-background rounded-full overflow-hidden border border-border">
                     <div 
-                      className="h-full bg-accent-lime shadow-[0_0_15px_rgba(0,255,65,0.6)] transition-all duration-1000" 
+                      className="h-full bg-accent-purple shadow-[0_0_15px_rgba(124,58,237,0.6)] transition-all duration-1000" 
                       style={{ width: `${perc}%` }} 
                     />
                   </div>
