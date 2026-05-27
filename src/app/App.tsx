@@ -330,14 +330,8 @@ export default function App() {
       <div className="flex w-full min-h-screen bg-background text-foreground selection:bg-accent-purple/30">
         <Sidebar className="border-r border-border" collapsible={isMobile ? "icon" : "none"}>
           <SidebarHeader className="px-6 py-8">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 flex items-center justify-center">
-                <img src="/logobranca.svg" alt="Logo" className="w-8 h-8" />
-              </div>
-              <div>
-                <h1 className="text-lg font-black tracking-tighter leading-none bg-gradient-to-r from-accent-purple to-accent-lime bg-clip-text text-transparent">NAVEX FINANCE</h1>
-                <p className="text-[10px] text-text-dim font-bold uppercase tracking-widest mt-1">Gestão Inteligente</p>
-              </div>
+            <div className="flex items-center justify-center w-full">
+              <img src="/logobranca.svg" alt="Logo" className="w-20 h-20" />
             </div>
           </SidebarHeader>
 

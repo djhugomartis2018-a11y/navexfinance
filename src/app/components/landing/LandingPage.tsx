@@ -117,9 +117,8 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center p-6">
         <div className="flex items-center gap-8 px-6 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-          <div className="flex items-center gap-2">
-            <img src="/logobranca.svg" alt="NAVEX Finance" className="w-6 h-6" />
-            <span className="text-sm font-bold tracking-tight">NAVEX Finance</span>
+          <div className="flex items-center">
+            <img src="/logobranca.svg" alt="NAVEX Finance" className="w-12 h-12" />
           </div>
           <div className="hidden md:flex items-center gap-6 text-sm font-medium text-white/60">
             <a href="#" className="hover:text-white transition-colors">Início</a>
@@ -337,9 +336,8 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       <footer className="py-20 px-4 border-t border-white/5">
         <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-12">
           <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <img src="/logobranca.svg" alt="NAVEX Finance" className="w-6 h-6" />
-              <span className="text-lg font-bold">NAVEX Finance</span>
+            <div className="flex items-center">
+              <img src="/logobranca.svg" alt="NAVEX Finance" className="w-16 h-16" />
             </div>
             <p className="text-white/40 text-sm leading-relaxed">
               Tornando a gestão financeira mais simples, inteligente e acessível para todos através da IA.
