@@ -238,19 +238,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         </div>
       </section>
 
-      {/* Trusted By */}
-      <section className="py-20 border-y border-white/5">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/30 mb-12">Confiado por mais de 10.000 usuários</p>
-          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-40 grayscale">
-            <span className="text-xl font-black">LOGOIPSUM</span>
-            <span className="text-xl font-black italic">IPSUM</span>
-            <span className="text-xl font-black">logo</span>
-            <span className="text-xl font-black underline decoration-accent-purple decoration-4">LOOO</span>
-            <span className="text-xl font-black">Logoip</span>
-          </div>
-        </div>
-      </section>
+
 
       {/* Features Grid */}
       <section className="py-32 px-4 relative">
@@ -311,7 +299,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             Pronto para transformar<br />suas finanças?
           </h2>
           <p className="text-white/50 text-lg font-medium">
-            Junte-se a milhares de pessoas que já usam a NAVEX para automatizar seu controle e economizar como nunca.
+            Use a NAVEX para automatizar seu controle e economizar como nunca.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
