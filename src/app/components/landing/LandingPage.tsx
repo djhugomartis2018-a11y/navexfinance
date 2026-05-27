@@ -121,19 +121,16 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             <div className="absolute inset-0 bg-white/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
             <img src="/logobranca.svg" alt="NAVEX Finance" className="w-20 h-20 relative z-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" />
           </div>
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-white/60">
-            <a href="#" className="hover:text-white transition-colors">Início</a>
-            <a href="#" className="hover:text-white transition-colors">Sobre</a>
-            <a href="#" className="hover:text-white transition-colors">Recursos</a>
-            <a href="#" className="hover:text-white transition-colors">Preços</a>
-            <a href="#" className="hover:text-white transition-colors">Integrações</a>
-            <a href="#" className="hover:text-white transition-colors">Blog</a>
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/60">
+            <a href="#recursos" className="hover:text-white transition-colors">Recursos</a>
+            <a href="#preços" className="hover:text-white transition-colors">Preços</a>
+            <a href="#como-funciona" className="hover:text-white transition-colors">Como funciona</a>
           </div>
           <button 
             onClick={onGetStarted}
-            className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-purple text-xs font-bold hover:bg-accent-purple/80 transition-all"
+            className="flex items-center justify-center px-6 py-2 rounded-full bg-white text-black text-sm font-bold hover:bg-white/90 transition-all"
           >
-            Contato <ArrowRight size={14} />
+            Entrar
           </button>
         </div>
       </nav>
