@@ -162,15 +162,15 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Button 
               onClick={onGetStarted}
-              className="h-12 px-8 rounded-full border border-white/10 bg-black/40 hover:bg-accent-lime hover:text-black hover:border-accent-lime hover:shadow-[0_0_30px_rgba(218,235,68,0.4)] text-sm font-bold backdrop-blur-sm transition-all duration-300"
+              className="h-12 px-8 rounded-full border border-white/10 bg-white/5 hover:bg-[#daeb44] hover:text-black hover:border-[#daeb44] hover:shadow-[0_0_30px_rgba(218,235,68,0.5)] text-sm font-bold backdrop-blur-sm transition-all duration-300 group"
             >
-              Começar Agora <ArrowRight size={16} className="ml-2" />
+              Começar Agora <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button 
               variant="outline"
-              className="h-12 px-8 rounded-full border border-white/10 bg-black/40 hover:bg-accent-lime hover:text-black hover:border-accent-lime hover:shadow-[0_0_30px_rgba(218,235,68,0.4)] text-sm font-bold backdrop-blur-sm transition-all duration-300"
+              className="h-12 px-8 rounded-full border border-white/10 bg-white/5 hover:bg-[#daeb44] hover:text-black hover:border-[#daeb44] hover:shadow-[0_0_30px_rgba(218,235,68,0.5)] text-sm font-bold backdrop-blur-sm transition-all duration-300 group"
             >
-              Ver Demonstração <ArrowRight size={16} className="ml-2" />
+              Ver Demonstração <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
 
