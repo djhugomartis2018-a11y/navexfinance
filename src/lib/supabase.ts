@@ -1,12 +1,27 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js'
+import type { Database } from '../types/database.types'
 
-const supabaseUrl = "https://jughxjhaqaearaamlglp.supabase.co";
-const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp1Z2h4amhhcWFlYXJhYW1sZ2xwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NzIxMTMsImV4cCI6MjA5NTA0ODExM30.jF-tiV7f5JvVaW5zdYAwWus2g_2lkSdD0QDiju6eV10";
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true
+// Vite expõe variáveis via import.meta.env
+// Para o TypeScript reconhecer, declaramos o tipo abaixo
+declare global {
+  interface ImportMeta {
+    readonly env: Record<string, string>
   }
-});
+}
+
+const supabaseUrl = (import.meta as ImportMeta).env['VITE_SUPABASE_URL']
+const supabaseAnonKey = (import.meta as ImportMeta).env['VITE_SUPABASE_ANON_KEY']
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error(
+    'Missing Supabase env vars. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.'
+  )
+}
+
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  },
+})
