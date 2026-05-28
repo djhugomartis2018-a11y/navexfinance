@@ -95,7 +95,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         <div className="flex items-center gap-8 px-6 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
           <div className="flex items-center relative group">
             <div className="absolute inset-0 bg-white/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-            <img src="/logobranca.svg" alt="NAVEX Finance" className="w-20 h-20 relative z-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" />
+            <img src="/logoverde.svg" alt="NAVEX Finance" className="w-20 h-20 relative z-10" />
           </div>
 	          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/60">
 	            <a href="#recursos" className="hover:text-white transition-colors">Recursos</a>
