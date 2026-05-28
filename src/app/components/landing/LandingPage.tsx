@@ -367,7 +367,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-12">
           <div className="space-y-6">
             <div className="flex items-center">
-              <img src="/logobranca.svg" alt="NAVEX Finance" className="w-24 h-24 drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]" />
+              <img src="/logobranca.svg" alt="NAVEX Finance" className="w-24 h-24" />
             </div>
             <p className="text-white/40 text-sm leading-relaxed">
               Tornando a gestão financeira mais simples, inteligente e acessível para todos através da IA.
