@@ -33,32 +33,32 @@ Sistema completo de gerenciamento financeiro pessoal com design premium e respon
 
 ```bash
 # Clone o repositório
-git clone https://github.com/djhugomartis2018-a11y/Gerenciadorfinanceiro.git
+git clone https://github.com/djhugomartis2018-a11y/navexfinance.git
 
 # Entre no diretório
-cd Gerenciadorfinanceiro
+cd navexfinance
 
 # Instale as dependências
-pnpm install
+npm install
 
 # Inicie o servidor de desenvolvimento
-pnpm dev
+npm run dev
 ```
 
 ### Build para Produção
 
 ```bash
 # Gera build otimizado
-pnpm build
+npm run build
 
 # Preview do build
-pnpm preview
+npm run preview
 ```
 
 ## 📐 Estrutura do Projeto
 
 ```
-Gerenciadorfinanceiro/
+navexfinance/
 ├── src/
 │   ├── app/
 │   │   ├── App.tsx              # Componente principal
