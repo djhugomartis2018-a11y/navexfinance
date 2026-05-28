@@ -10,9 +10,10 @@ import { toast } from 'sonner';
 
 interface LoginPageProps {
   onLoginSuccess: () => void;
+  emailConfirmed?: boolean;
 }
 
-export function LoginPage({ onLoginSuccess }: LoginPageProps) {
+export function LoginPage({ onLoginSuccess, emailConfirmed = false }: LoginPageProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -155,6 +156,14 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
               ? 'Preencha os dados para começar sua gestão financeira'
               : 'Entre com suas credenciais para acessar o painel'}
           </CardDescription>
+          {emailConfirmed && (
+            <div className="mt-3 flex items-center gap-2 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-400">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              E-mail confirmado com sucesso! Faça login para continuar.
+            </div>
+          )}
         </CardHeader>
         <form onSubmit={handleAuth}>
           <CardContent className="space-y-4">

@@ -164,6 +164,7 @@ const calcMonth = (data: AppData, key: string) => {
 export default function App() {
   const [session, setSession] = useState<any>(null);
   const [authLoading, setAuthLoading] = useState(true);
+  const [emailConfirmed, setEmailConfirmed] = useState(false);
   const [data, setData] = useState<AppData>(getDefaultData());
   const [isSyncing, setIsSyncing] = useState(false);
   const [currentPage, setCurrentPage] = useState<string>('overview');
@@ -228,6 +229,17 @@ export default function App() {
   };
 
   useEffect(() => {
+    // Detecta redirect após confirmação de e-mail
+    const hash = window.location.hash;
+    if (hash.includes('type=signup') || hash.includes('type=email_change')) {
+      setEmailConfirmed(true);
+      supabase.auth.signOut().then(() => {
+        window.history.replaceState(null, '', window.location.pathname);
+        setAuthLoading(false);
+      });
+      return;
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       if (session?.user) fetchUserData(session.user.id);
@@ -315,10 +327,13 @@ export default function App() {
     }
     return (
       <>
-        <LoginPage onLoginSuccess={async () => {
-          const { data: { session: newSession } } = await supabase.auth.getSession();
-          setSession(newSession);
-        }} />
+        <LoginPage
+          emailConfirmed={emailConfirmed}
+          onLoginSuccess={async () => {
+            const { data: { session: newSession } } = await supabase.auth.getSession();
+            setSession(newSession);
+          }}
+        />
         <Toaster richColors position="top-right" />
       </>
     );
