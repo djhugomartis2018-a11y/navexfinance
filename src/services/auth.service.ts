@@ -24,25 +24,49 @@ export const authService = {
   },
 
   async getSession() {
-    const { data, error } = await supabase.auth.getSession()
-    if (error) handleSupabaseError(error)
-    return data.session
+    try {
+      const { data, error } = await supabase.auth.getSession()
+      if (error) {
+        console.warn('[authService] Error getting session:', error.message)
+        return null
+      }
+      return data.session
+    } catch (err) {
+      console.error('[authService] Exception getting session:', err)
+      return null
+    }
   },
 
   async getUser() {
-    const { data, error } = await supabase.auth.getUser()
-    if (error) return null
-    return data.user
+    try {
+      const { data, error } = await supabase.auth.getUser()
+      if (error) {
+        console.warn('[authService] Error getting user:', error.message)
+        return null
+      }
+      return data.user
+    } catch (err) {
+      console.error('[authService] Exception getting user:', err)
+      return null
+    }
   },
 
   async getProfile(userId: string): Promise<Profile | null> {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single()
-    if (error) return null
-    return data as unknown as Profile
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single()
+      if (error) {
+        console.warn('[authService] Error getting profile:', error.message)
+        return null
+      }
+      return data as unknown as Profile
+    } catch (err) {
+      console.error('[authService] Exception getting profile:', err)
+      return null
+    }
   },
 
   async updateProfile(userId: string, updates: Partial<Omit<Profile, 'id'>>) {

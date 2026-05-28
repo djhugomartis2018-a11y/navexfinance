@@ -386,11 +386,41 @@ function MainApp() {
 
 // ── SPLASH ───────────────────────────────────────────────────
 function Splash() {
+  const [elapsed, setElapsed] = React.useState(0)
+  const TIMEOUT_SECONDS = 15
+  const isTimedOut = elapsed >= TIMEOUT_SECONDS
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setElapsed(prev => {
+        if (prev >= TIMEOUT_SECONDS) {
+          clearInterval(interval)
+          return TIMEOUT_SECONDS
+        }
+        return prev + 0.1
+      })
+    }, 100)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: T.bg }}>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: 40, marginBottom: 16, animation: 'pulse 1s infinite' }}>💰</div>
-        <p style={{ color: T.textDim, fontSize: 13, fontWeight: 600, letterSpacing: '0.05em' }}>SINCRONIZANDO...</p>
+      <div style={{ textAlign: 'center', maxWidth: 400 }}>
+        <div style={{ fontSize: 40, marginBottom: 16, animation: isTimedOut ? 'none' : 'pulse 1s infinite' }}>💰</div>
+        <p style={{ color: T.textDim, fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', marginBottom: 24 }}>
+          {isTimedOut ? 'SINCRONIZAÇÃO DEMORADA...' : 'SINCRONIZANDO...'}
+        </p>
+        {isTimedOut && (
+          <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: T.radius, padding: 16, marginTop: 16 }}>
+            <p style={{ color: T.red, fontSize: 12, margin: '0 0 8px', fontWeight: 600 }}>⚠️ Sincronização demorada</p>
+            <p style={{ color: T.textDim, fontSize: 11, margin: 0, lineHeight: 1.5 }}>
+              Verifique sua conexão com a internet ou se as variáveis de ambiente do Supabase estão configuradas corretamente.
+            </p>
+          </div>
+        )}
+        <div style={{ marginTop: 24, fontSize: 11, color: T.textDark }}>
+          {Math.floor(elapsed)}s / {TIMEOUT_SECONDS}s
+        </div>
       </div>
     </div>
   )
