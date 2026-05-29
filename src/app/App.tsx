@@ -14,8 +14,11 @@ import {
   Filler
 } from 'chart.js';
 import { Doughnut, Line } from 'react-chartjs-2';
-import { LayoutGrid, TrendingUp, Target, User, Plus, Trash2, LogOut, ChevronRight, Wallet, ArrowUpCircle, ArrowDownCircle, Calendar } from 'lucide-react';
+import { LayoutGrid, TrendingUp, Target, User, Plus, Trash2, LogOut, ChevronRight, Wallet, ArrowUpCircle, ArrowDownCircle, Calendar, Lock } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { useSubscription } from '../lib/useSubscription';
+import { canAddMonth, hasFeature, PLAN_NAMES } from '../lib/plans';
+import { UpgradeGate } from './components/ui/UpgradeGate';
 import { LoginPage } from './components/auth/LoginPage';
 import { LandingPage } from './components/landing/LandingPage';
 import { ProfilePage } from './components/profile/ProfilePage';
@@ -172,7 +175,9 @@ export default function App() {
   const [currentTab, setCurrentTab] = useState<string>('resumo');
   const [newMonthInput, setNewMonthInput] = useState('');
   const [showLanding, setShowLanding] = useState(true);
+  const [showMonthLimitModal, setShowMonthLimitModal] = useState(false);
   const isMobile = useIsMobile();
+  const { plan } = useSubscription();
 
   // Load data from Supabase
   const fetchUserData = useCallback(async (userId: string) => {
@@ -266,6 +271,10 @@ export default function App() {
     if (!val) return;
     if (data.months.includes(val)) {
       toast.error('Mês já existe!');
+      return;
+    }
+    if (!canAddMonth(plan, data.months.length)) {
+      setShowMonthLimitModal(true);
       return;
     }
     const newData = {
@@ -365,12 +374,14 @@ export default function App() {
                     <SidebarMenuButton isActive={currentPage === 'historico'} onClick={() => showPage('historico')}>
                       <TrendingUp size={20} className={currentPage === 'historico' ? "text-accent-purple" : ""} />
                       <span className="font-bold">Análises</span>
+                      {!hasFeature(plan, 'monthlyComparison') && <Lock size={12} className="ml-auto text-text-dark" />}
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton isActive={currentPage === 'metas'} onClick={() => showPage('metas')}>
                       <Target size={20} className={currentPage === 'metas' ? "text-accent-purple" : ""} />
                       <span className="font-bold">Minhas Metas</span>
+                      {!hasFeature(plan, 'financialGoals') && <Lock size={12} className="ml-auto text-text-dark" />}
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
@@ -471,12 +482,55 @@ export default function App() {
                 updateData={updateData}
               />
             )}
-            {currentPage === 'historico' && <HistoricoPage data={data} openMonth={openMonth} />}
-            {currentPage === 'metas' && <MetasPage data={data} updateData={updateData} />}
+            {currentPage === 'historico' && (
+              <UpgradeGate feature="monthlyComparison" userPlan={plan}>
+                <HistoricoPage data={data} openMonth={openMonth} />
+              </UpgradeGate>
+            )}
+            {currentPage === 'metas' && (
+              <UpgradeGate feature="financialGoals" userPlan={plan}>
+                <MetasPage data={data} updateData={updateData} />
+              </UpgradeGate>
+            )}
             {currentPage === 'perfil' && <ProfilePage />}
           </main>
         </SidebarInset>
       </div>
+
+      {showMonthLimitModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="bg-surface border border-border rounded-2xl p-8 max-w-sm w-full mx-4 space-y-5">
+            <div className="space-y-1">
+              <h3 className="text-lg font-black">Torne sua organização contínua</h3>
+              <p className="text-sm text-text-dim">
+                Você atingiu o limite de {2} meses do plano {PLAN_NAMES[plan]}.
+                Remova um mês existente ou evolua seu plano para continuar.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <Button
+                onClick={() => { setShowMonthLimitModal(false); setCurrentPage('overview'); }}
+                variant="outline"
+                className="w-full border-border"
+              >
+                Remover um mês
+              </Button>
+              <Button
+                onClick={() => { setShowMonthLimitModal(false); setShowLanding(true); }}
+                className="w-full bg-accent-purple text-white hover:bg-accent-purple/90 font-bold"
+              >
+                Upgrade para Essencial
+              </Button>
+              <button
+                onClick={() => setShowMonthLimitModal(false)}
+                className="text-xs text-text-dim hover:text-foreground transition-colors text-center"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </SidebarProvider>
   );
 }
