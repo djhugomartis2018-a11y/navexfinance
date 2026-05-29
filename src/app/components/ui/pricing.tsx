@@ -16,13 +16,15 @@ export function PricingSection() {
       price: "R$ 0",
       annualPrice: "R$ 0",
       period: "por usuário/mês",
-      description: "Para começar sem custos",
+      description: "Para começar sua organização financeira",
       features: [
-        "Até 2 contas",
-        "50 lançamentos/mês",
+        "Até 2 meses ativos",
+        "Registro manual de receitas e despesas",
+        "Categorias padrão",
         "Visão mensal",
-        "Suporte por email",
+        "Resumo simples do mês",
       ],
+      note: "Organize até 2 meses do seu histórico. Para criar novos meses, remova antigos ou evolua seu plano.",
       cta: "Começar Grátis",
       highlighted: false,
     },
@@ -31,14 +33,16 @@ export function PricingSection() {
       price: "R$ 19",
       annualPrice: "R$ 15",
       period: "por usuário/mês",
-      description: "Mais controle, mais liberdade",
+      description: "Para acompanhar suas finanças continuamente",
       features: [
-        "Lançamentos ilimitados",
+        "Meses ilimitados",
         "Categorias personalizadas",
-        "Relatórios simples",
-        "Exportação de dados",
-        "Suporte prioritário",
+        "Histórico contínuo",
+        "Planejamento mensal",
+        "Comparação de gastos entre meses",
+        "Resumo mensal detalhado",
       ],
+      note: null,
       cta: "Assinar Agora",
       highlighted: true,
     },
@@ -47,15 +51,16 @@ export function PricingSection() {
       price: "R$ 39",
       annualPrice: "R$ 31",
       period: "por usuário/mês",
-      description: "Controle financeiro total",
+      description: "Para organização financeira avançada",
       features: [
-        "Metas financeiras avançadas",
-        "Planejamento mensal",
-        "Comparação de períodos",
-        "Dashboard avançado",
-        "Análise preditiva",
-        "Suporte 24/7",
+        "Tudo do Essencial",
+        "Comparação avançada entre períodos",
+        "Orçamento por categoria",
+        "Metas financeiras",
+        "Templates mensais",
+        "Visão anual consolidada",
       ],
+      note: null,
       cta: "Começar com Pro",
       highlighted: false,
     },
@@ -198,6 +203,12 @@ export function PricingSection() {
                   </li>
                 ))}
               </ul>
+
+              {plan.note && (
+                <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', lineHeight: 1.5, marginBottom: 16 }}>
+                  {plan.note}
+                </p>
+              )}
 
               <button className={plan.highlighted ? 'pv3-btn-primary' : 'pv3-btn-ghost'}>
                 {plan.cta}

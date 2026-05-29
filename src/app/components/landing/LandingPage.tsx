@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { ChevronRight, TrendingUp, Target, Wallet, BarChart3, Lock, Zap, ArrowRight, Sparkles, CheckCircle2, PlayCircle, Globe, Layout, ShieldCheck, BarChart, Smartphone, LayoutGrid, User, ArrowUpCircle, ArrowDownCircle, Calendar } from 'lucide-react';
+import { ChevronRight, TrendingUp, Target, Wallet, BarChart3, ArrowRight, Sparkles, Smartphone, LayoutGrid, User, ArrowUpCircle, ArrowDownCircle, Calendar } from 'lucide-react';
 import { Button } from '../ui/button';
 import { PricingSection } from '../ui/pricing';
 
@@ -8,8 +7,6 @@ interface LandingPageProps {
 }
 
 export function LandingPage({ onGetStarted }: LandingPageProps) {
-  const [activeFeature, setActiveFeature] = useState(0);
-
   const features = [
     {
       icon: BarChart3,
@@ -22,62 +19,6 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       title: 'Acesso Mobile',
       description: 'Acesse seu dashboard financeiro de qualquer lugar com nosso app responsivo.',
       highlight: 'Mobile First'
-    }
-  ];
-
-  const pricingPlans = [
-    {
-      id: 'basic',
-      name: 'Básico',
-      price: '0',
-      yearlyPrice: '0',
-      period: 'mês',
-      description: 'Para começar sua organização financeira',
-      features: [
-        'Até 2 meses',
-        'Registro manual de receitas e despesas',
-        'Visão mensal',
-        'Resumo simples do mês'
-      ],
-      buttonText: 'Começar',
-      href: '#',
-      isPopular: false
-    },
-    {
-      id: 'essential',
-      name: 'Essencial',
-      price: '19',
-      yearlyPrice: '15',
-      period: 'mês',
-      description: 'Para acompanhar suas finanças continuamente',
-      features: [
-        'Meses ilimitados',
-        'Categorias personalizadas',
-        'Histórico contínuo',
-        'Comparação de gastos entre meses',
-        'Resumo mensal detalhado'
-      ],
-      buttonText: 'Assinar',
-      href: '#',
-      isPopular: true
-    },
-    {
-      id: 'pro',
-      name: 'Pro',
-      price: '39',
-      yearlyPrice: '31',
-      period: 'mês',
-      description: 'Controle financeiro total',
-      features: [
-        'Tudo do Essencial',
-        'Comparação avançada entre períodos',
-        'Comparação de períodos',
-        'Metas financeiras',
-        'Visão anual consolidada',
-      ],
-      buttonText: 'Assinar',
-      href: '#',
-      isPopular: false
     }
   ];
 
@@ -303,11 +244,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
 
       {/* Pricing Section */}
       <section id="precos" className="relative py-32 px-4 bg-white/[0.01] border-y border-white/5">
-        <PricingSection
-          plans={pricingPlans}
-          title="Preços Simples e Transparentes"
-          description="Escolha o plano ideal para o seu crescimento financeiro."
-        />
+        <PricingSection />
       </section>
 
       {/* How it Works Section */}
