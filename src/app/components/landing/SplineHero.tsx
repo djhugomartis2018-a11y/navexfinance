@@ -9,7 +9,7 @@ import { Spotlight } from '../ui/Spotlight';
 // 2. Add the /logobranca.svg to the robot's chest in the Spline editor
 // 3. Publish → copy the public URL → paste below
 // ──────────────────────────────────────────────────────────────────────────────
-const SPLINE_SCENE_URL = 'https://prod.spline.design/COLOQUE-SUA-URL-AQUI/scene.splinecode';
+const SPLINE_SCENE_URL = 'https://prod.spline.design/IlYTIFN3uTLpAaHO/scene.splinecode';
 
 interface SplineHeroProps {
   onGetStarted: () => void;
