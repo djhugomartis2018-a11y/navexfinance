@@ -304,9 +304,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       {/* Pricing Section */}
       <section id="precos" className="relative py-32 px-4 bg-white/[0.01] border-y border-white/5">
         <PricingSection
-          plans={pricingPlans}
-          title="Preços Simples e Transparentes"
-          description="Escolha o plano ideal para o seu crescimento financeiro."
+          onSelectPlan={() => onGetStarted()}
         />
       </section>
 
