@@ -13,8 +13,8 @@ export const PRICING: Record<Plan, Record<BillingCycle, number>> = {
 // Replace with real price IDs from Stripe Dashboard when connecting billing.
 // Usage: STRIPE_PRICE_IDS['essential']['monthly'] → 'price_...'
 export const STRIPE_PRICE_IDS: Record<Exclude<Plan, 'basic'>, Record<BillingCycle, string>> = {
-  essential: { monthly: 'price_1TcXmkH9iGFf9HYL4B9m0ZOy', yearly: 'price_1TcXmlH9iGFf9HYLhKNzRwR' },
-  pro:       { monthly: 'price_1TcXmkH9iGFf9HYLqViyxlNV', yearly: 'price_1TcXmmH9iGFf9HYLxFEwoLWf' },
+  essential: { monthly: 'price_1TdWD3H9iGFf9HYLJ06LCr3M', yearly: 'price_1TdWDOH9iGFf9HYLIXb8UyZC' },
+  pro:       { monthly: 'price_1TcXmkH9iGFf9HYLqViyxlNV', yearly: 'price_1TdWCVH9iGFf9HYLqh0SjuhL' },
 };
 
 export function formatPrice(plan: Plan, cycle: BillingCycle): string {
