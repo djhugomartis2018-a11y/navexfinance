@@ -462,7 +462,7 @@ export default function App() {
               <div className="flex flex-col items-center justify-center w-full space-y-4">
                 <div className="relative">
                   <div className="absolute inset-0 bg-accent-purple/20 blur-2xl rounded-full" />
-                  <img src="/logoverde.svg" alt="Logo" className="w-32 h-32 relative z-10 drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]" />
+                  <img src="/logoverde.svg" alt="Logo" className="w-32 h-32 relative z-10" />
                 </div>
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
               </div>
