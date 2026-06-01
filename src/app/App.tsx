@@ -255,7 +255,7 @@ export default function App() {
         .maybeSingle();
 
       if (error) throw error;
-      
+
       if (dbData?.data) {
         setData(dbData.data);
         const months = dbData.data.months;
@@ -280,10 +280,10 @@ export default function App() {
     try {
       const { error } = await supabase
         .from('user_data')
-        .upsert({ 
-          id: userId, 
-          data: newData, 
-          updated_at: new Date().toISOString() 
+        .upsert({
+          id: userId,
+          data: newData,
+          updated_at: new Date().toISOString()
         });
 
       if (error) throw error;
@@ -443,7 +443,7 @@ export default function App() {
               try {
                 const { plan: p, cycle: c } = JSON.parse(raw);
                 if (p && p !== 'basic') subscribe(p, c);
-              } catch {}
+              } catch { }
             }
           }}
         />
@@ -454,220 +454,220 @@ export default function App() {
 
   return (
     <SubscriptionContext.Provider value={subscriptionContextValue}>
-    <SidebarProvider>
-      <Toaster richColors position="top-right" />
-      <div className="flex w-full min-h-screen bg-background text-foreground selection:bg-accent-purple/30">
-        <Sidebar className="border-r border-border" collapsible={isMobile ? "icon" : "none"}>
-          <SidebarHeader className="px-6 py-8">
-            <div className="flex flex-col items-center justify-center w-full space-y-4">
-              <div className="relative">
-                <div className="absolute inset-0 bg-accent-purple/20 blur-2xl rounded-full" />
-                <img src="/logobranca.svg" alt="Logo" className="w-32 h-32 relative z-10 drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]" />
+      <SidebarProvider>
+        <Toaster richColors position="top-right" />
+        <div className="flex w-full min-h-screen bg-background text-foreground selection:bg-accent-purple/30">
+          <Sidebar className="border-r border-border" collapsible={isMobile ? "icon" : "none"}>
+            <SidebarHeader className="px-6 py-8">
+              <div className="flex flex-col items-center justify-center w-full space-y-4">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-accent-purple/20 blur-2xl rounded-full" />
+                  <img src="/logoverde.svg" alt="Logo" className="w-32 h-32 relative z-10 drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]" />
+                </div>
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
               </div>
-              <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-            </div>
-          </SidebarHeader>
+            </SidebarHeader>
 
-          <SidebarContent className="px-3">
-            <SidebarGroup>
-              <SidebarGroupLabel className="px-3 text-[10px] font-black text-text-dark tracking-widest mb-2">MENU PRINCIPAL</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton isActive={currentPage === 'overview'} onClick={() => showPage('overview')}>
-                      <LayoutGrid size={20} className={currentPage === 'overview' ? "text-accent-purple" : ""} />
-                      <span className="font-bold">Painel Geral</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton isActive={currentPage === 'historico'} onClick={() => showPage('historico')}>
-                      <TrendingUp size={20} className={currentPage === 'historico' ? "text-accent-purple" : ""} />
-                      <span className="font-bold">Análises</span>
-                      {!hasFeature(plan, 'monthlyComparison') && <Lock size={12} className="ml-auto text-text-dark" />}
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton isActive={currentPage === 'metas'} onClick={() => showPage('metas')}>
-                      <Target size={20} className={currentPage === 'metas' ? "text-accent-purple" : ""} />
-                      <span className="font-bold">Minhas Metas</span>
-                      {!hasFeature(plan, 'financialGoals') && <Lock size={12} className="ml-auto text-text-dark" />}
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton isActive={currentPage === 'parcelamentos'} onClick={() => showPage('parcelamentos')}>
-                      <Layers size={20} className={currentPage === 'parcelamentos' ? "text-accent-purple" : ""} />
-                      <span className="font-bold">Parcelamentos</span>
-                      {!hasFeature(plan, 'parcelamentos') && <Lock size={12} className="ml-auto text-text-dark" />}
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton isActive={currentPage === 'plano'} onClick={() => showPage('plano')}>
-                      <CreditCard size={20} className={currentPage === 'plano' ? "text-accent-purple" : ""} />
-                      <span className="font-bold">Meu Plano</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-
-            <SidebarGroup className="mt-4">
-              <SidebarGroupLabel className="px-3 text-[10px] font-black text-text-dark tracking-widest mb-2">PLANEJAMENTO</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <ScrollArea className="h-[280px] pr-2">
+            <SidebarContent className="px-3">
+              <SidebarGroup>
+                <SidebarGroupLabel className="px-3 text-[10px] font-black text-text-dark tracking-widest mb-2">MENU PRINCIPAL</SidebarGroupLabel>
+                <SidebarGroupContent>
                   <SidebarMenu>
-                    {data.months.map((m: string) => (
-                      <SidebarMenuItem key={m}>
-                        <SidebarMenuButton 
-                          isActive={m === currentMonth && currentPage === 'mes'} 
-                          onClick={() => openMonth(m)}
-                          className="group/month flex items-center justify-between"
-                        >
-                          <div className="flex items-center gap-3">
-                            <Calendar size={16} className={m === currentMonth ? "text-accent-purple" : "text-text-dark"} />
-                            <span className="font-medium">{m}</span>
-                          </div>
-                          <button
-                            onClick={(e) => deleteMonth(e, m)}
-                            className="opacity-0 group-hover/month:opacity-100 p-1 hover:bg-red-500/10 rounded-md transition-all"
-                          >
-                            <Trash2 size={14} className="text-red-500" />
-                          </button>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive={currentPage === 'overview'} onClick={() => showPage('overview')}>
+                        <LayoutGrid size={20} className={currentPage === 'overview' ? "text-accent-purple" : ""} />
+                        <span className="font-bold">Painel Geral</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive={currentPage === 'historico'} onClick={() => showPage('historico')}>
+                        <TrendingUp size={20} className={currentPage === 'historico' ? "text-accent-purple" : ""} />
+                        <span className="font-bold">Análises</span>
+                        {!hasFeature(plan, 'monthlyComparison') && <Lock size={12} className="ml-auto text-text-dark" />}
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive={currentPage === 'metas'} onClick={() => showPage('metas')}>
+                        <Target size={20} className={currentPage === 'metas' ? "text-accent-purple" : ""} />
+                        <span className="font-bold">Minhas Metas</span>
+                        {!hasFeature(plan, 'financialGoals') && <Lock size={12} className="ml-auto text-text-dark" />}
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive={currentPage === 'parcelamentos'} onClick={() => showPage('parcelamentos')}>
+                        <Layers size={20} className={currentPage === 'parcelamentos' ? "text-accent-purple" : ""} />
+                        <span className="font-bold">Parcelamentos</span>
+                        {!hasFeature(plan, 'parcelamentos') && <Lock size={12} className="ml-auto text-text-dark" />}
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive={currentPage === 'plano'} onClick={() => showPage('plano')}>
+                        <CreditCard size={20} className={currentPage === 'plano' ? "text-accent-purple" : ""} />
+                        <span className="font-bold">Meu Plano</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
                   </SidebarMenu>
-                </ScrollArea>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          </SidebarContent>
+                </SidebarGroupContent>
+              </SidebarGroup>
 
-          <SidebarFooter className="p-4 border-t border-border bg-sidebar-accent/30">
-            <div className="space-y-3">
-              <div className="relative">
-                <SidebarInput
-                  type="text"
-                  value={newMonthInput}
-                  onChange={(e) => setNewMonthInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && addMonth()}
-                  placeholder="Novo mês (Ex: Jul/25)"
-                  className="bg-background border-border h-10 pr-10 font-medium"
+              <SidebarGroup className="mt-4">
+                <SidebarGroupLabel className="px-3 text-[10px] font-black text-text-dark tracking-widest mb-2">PLANEJAMENTO</SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <ScrollArea className="h-[280px] pr-2">
+                    <SidebarMenu>
+                      {data.months.map((m: string) => (
+                        <SidebarMenuItem key={m}>
+                          <SidebarMenuButton
+                            isActive={m === currentMonth && currentPage === 'mes'}
+                            onClick={() => openMonth(m)}
+                            className="group/month flex items-center justify-between"
+                          >
+                            <div className="flex items-center gap-3">
+                              <Calendar size={16} className={m === currentMonth ? "text-accent-purple" : "text-text-dark"} />
+                              <span className="font-medium">{m}</span>
+                            </div>
+                            <button
+                              onClick={(e) => deleteMonth(e, m)}
+                              className="opacity-0 group-hover/month:opacity-100 p-1 hover:bg-red-500/10 rounded-md transition-all"
+                            >
+                              <Trash2 size={14} className="text-red-500" />
+                            </button>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </SidebarMenu>
+                  </ScrollArea>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            </SidebarContent>
+
+            <SidebarFooter className="p-4 border-t border-border bg-sidebar-accent/30">
+              <div className="space-y-3">
+                <div className="relative">
+                  <SidebarInput
+                    type="text"
+                    value={newMonthInput}
+                    onChange={(e) => setNewMonthInput(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && addMonth()}
+                    placeholder="Novo mês (Ex: Jul/25)"
+                    className="bg-background border-border h-10 pr-10 font-medium"
+                  />
+                  <button onClick={addMonth} className="absolute right-2 top-1/2 -translate-y-1/2 text-accent-purple hover:scale-110 transition-transform">
+                    <Plus size={20} />
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-hover transition-colors cursor-pointer group" onClick={() => showPage('perfil')}>
+                  <div className="w-8 h-8 rounded-full bg-surface-hover border border-border flex items-center justify-center group-hover:border-accent-purple/50 transition-colors">
+                    <User size={16} className="text-text-dim group-hover:text-accent-purple" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-bold truncate">Minha Conta</p>
+                    <p className="text-[10px] text-text-dim truncate">{session.user.email}</p>
+                  </div>
+                  {isSyncing && <div className="w-2 h-2 bg-accent-purple rounded-full animate-pulse" />}
+                </div>
+              </div>
+            </SidebarFooter>
+          </Sidebar>
+
+          <SidebarInset className="flex flex-col">
+            <header className="sticky top-0 z-10 flex items-center justify-between px-4 py-4 md:px-8 bg-background/80 backdrop-blur-md border-b border-border">
+              <div className="flex items-center gap-4">
+                <SidebarTrigger className="md:hidden" />
+                <div>
+                  <h2 className="text-sm font-black uppercase tracking-widest text-text-dark">
+                    {currentPage === 'overview' ? 'Painel Geral' :
+                      currentPage === 'mes' ? `Planejamento · ${currentMonth}` :
+                        currentPage === 'historico' ? 'Análise de Dados' :
+                          currentPage === 'metas' ? 'Minhas Metas' :
+                            currentPage === 'parcelamentos' ? 'Parcelamentos' :
+                              currentPage === 'plano' ? 'Meu Plano' : 'Meu Perfil'}
+                  </h2>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                {isSyncing && <span className="text-[10px] font-bold text-accent-purple animate-pulse hidden md:block">SINCRONIZANDO...</span>}
+                <Button variant="ghost" size="icon" onClick={() => supabase.auth.signOut()} className="text-text-dark hover:text-red-500">
+                  <LogOut size={18} />
+                </Button>
+              </div>
+            </header>
+
+            <main className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full">
+              {currentPage === 'overview' && <OverviewPage data={data} openMonth={openMonth} />}
+              {currentPage === 'mes' && currentMonth && (
+                <MesPage
+                  data={data}
+                  currentMonth={currentMonth}
+                  currentTab={currentTab}
+                  setCurrentTab={setCurrentTab}
+                  updateData={updateData}
                 />
-                <button onClick={addMonth} className="absolute right-2 top-1/2 -translate-y-1/2 text-accent-purple hover:scale-110 transition-transform">
-                  <Plus size={20} />
+              )}
+              {currentPage === 'historico' && (
+                <UpgradeGate feature="monthlyComparison">
+                  <HistoricoPage data={data} openMonth={openMonth} />
+                </UpgradeGate>
+              )}
+              {currentPage === 'metas' && (
+                <UpgradeGate feature="financialGoals">
+                  <MetasPage data={data} updateData={updateData} />
+                </UpgradeGate>
+              )}
+              {currentPage === 'parcelamentos' && (
+                <UpgradeGate feature="parcelamentos">
+                  <ParcelamentosPage
+                    parcelamentos={data.parcelamentos ?? []}
+                    onAdd={addParcelamento}
+                    onPagar={pagarParcela}
+                    onDesfazer={desfazerParcela}
+                    onDelete={deleteParcelamento}
+                  />
+                </UpgradeGate>
+              )}
+              {currentPage === 'plano' && <ManagePlanPage />}
+              {currentPage === 'perfil' && <ProfilePage />}
+            </main>
+          </SidebarInset>
+        </div>
+
+        {showMonthLimitModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+            <div className="bg-surface border border-border rounded-2xl p-8 max-w-sm w-full mx-4 space-y-5">
+              <div className="space-y-1">
+                <h3 className="text-lg font-black">Torne sua organização contínua</h3>
+                <p className="text-sm text-text-dim">
+                  Você atingiu o limite de {2} meses do plano {PLAN_NAMES[plan]}.
+                  Remova um mês existente ou evolua seu plano para continuar.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <Button
+                  onClick={() => { setShowMonthLimitModal(false); setCurrentPage('overview'); }}
+                  variant="outline"
+                  className="w-full border-border"
+                >
+                  Remover um mês
+                </Button>
+                <Button
+                  onClick={() => { setShowMonthLimitModal(false); setShowLanding(true); }}
+                  className="w-full bg-accent-purple text-white hover:bg-accent-purple/90 font-bold"
+                >
+                  Upgrade para Essencial
+                </Button>
+                <button
+                  onClick={() => setShowMonthLimitModal(false)}
+                  className="text-xs text-text-dim hover:text-foreground transition-colors text-center"
+                >
+                  Cancelar
                 </button>
               </div>
-              
-              <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-hover transition-colors cursor-pointer group" onClick={() => showPage('perfil')}>
-                <div className="w-8 h-8 rounded-full bg-surface-hover border border-border flex items-center justify-center group-hover:border-accent-purple/50 transition-colors">
-                  <User size={16} className="text-text-dim group-hover:text-accent-purple" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold truncate">Minha Conta</p>
-                  <p className="text-[10px] text-text-dim truncate">{session.user.email}</p>
-                </div>
-                {isSyncing && <div className="w-2 h-2 bg-accent-purple rounded-full animate-pulse" />}
-              </div>
-            </div>
-          </SidebarFooter>
-        </Sidebar>
-
-        <SidebarInset className="flex flex-col">
-          <header className="sticky top-0 z-10 flex items-center justify-between px-4 py-4 md:px-8 bg-background/80 backdrop-blur-md border-b border-border">
-            <div className="flex items-center gap-4">
-              <SidebarTrigger className="md:hidden" />
-              <div>
-                <h2 className="text-sm font-black uppercase tracking-widest text-text-dark">
-                  {currentPage === 'overview' ? 'Painel Geral' :
-                   currentPage === 'mes' ? `Planejamento · ${currentMonth}` :
-                   currentPage === 'historico' ? 'Análise de Dados' :
-                   currentPage === 'metas' ? 'Minhas Metas' :
-                   currentPage === 'parcelamentos' ? 'Parcelamentos' :
-                   currentPage === 'plano' ? 'Meu Plano' : 'Meu Perfil'}
-                </h2>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-3">
-              {isSyncing && <span className="text-[10px] font-bold text-accent-purple animate-pulse hidden md:block">SINCRONIZANDO...</span>}
-              <Button variant="ghost" size="icon" onClick={() => supabase.auth.signOut()} className="text-text-dark hover:text-red-500">
-                <LogOut size={18} />
-              </Button>
-            </div>
-          </header>
-
-          <main className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full">
-            {currentPage === 'overview' && <OverviewPage data={data} openMonth={openMonth} />}
-            {currentPage === 'mes' && currentMonth && (
-              <MesPage
-                data={data}
-                currentMonth={currentMonth}
-                currentTab={currentTab}
-                setCurrentTab={setCurrentTab}
-                updateData={updateData}
-              />
-            )}
-            {currentPage === 'historico' && (
-              <UpgradeGate feature="monthlyComparison">
-                <HistoricoPage data={data} openMonth={openMonth} />
-              </UpgradeGate>
-            )}
-            {currentPage === 'metas' && (
-              <UpgradeGate feature="financialGoals">
-                <MetasPage data={data} updateData={updateData} />
-              </UpgradeGate>
-            )}
-            {currentPage === 'parcelamentos' && (
-              <UpgradeGate feature="parcelamentos">
-                <ParcelamentosPage
-                  parcelamentos={data.parcelamentos ?? []}
-                  onAdd={addParcelamento}
-                  onPagar={pagarParcela}
-                  onDesfazer={desfazerParcela}
-                  onDelete={deleteParcelamento}
-                />
-              </UpgradeGate>
-            )}
-            {currentPage === 'plano' && <ManagePlanPage />}
-            {currentPage === 'perfil' && <ProfilePage />}
-          </main>
-        </SidebarInset>
-      </div>
-
-      {showMonthLimitModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-          <div className="bg-surface border border-border rounded-2xl p-8 max-w-sm w-full mx-4 space-y-5">
-            <div className="space-y-1">
-              <h3 className="text-lg font-black">Torne sua organização contínua</h3>
-              <p className="text-sm text-text-dim">
-                Você atingiu o limite de {2} meses do plano {PLAN_NAMES[plan]}.
-                Remova um mês existente ou evolua seu plano para continuar.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3">
-              <Button
-                onClick={() => { setShowMonthLimitModal(false); setCurrentPage('overview'); }}
-                variant="outline"
-                className="w-full border-border"
-              >
-                Remover um mês
-              </Button>
-              <Button
-                onClick={() => { setShowMonthLimitModal(false); setShowLanding(true); }}
-                className="w-full bg-accent-purple text-white hover:bg-accent-purple/90 font-bold"
-              >
-                Upgrade para Essencial
-              </Button>
-              <button
-                onClick={() => setShowMonthLimitModal(false)}
-                className="text-xs text-text-dim hover:text-foreground transition-colors text-center"
-              >
-                Cancelar
-              </button>
             </div>
           </div>
-        </div>
-      )}
-    </SidebarProvider>
+        )}
+      </SidebarProvider>
     </SubscriptionContext.Provider>
   );
 }
@@ -709,7 +709,7 @@ function OverviewPage({ data, openMonth }: { data: AppData; openMonth: (m: strin
   const totalRec = allCalc.reduce((s, m) => s + m.rec, 0);
   const totalPag = allCalc.reduce((s, m) => s + m.pagar, 0);
   const totalSaldo = totalRec - totalPag;
-  
+
   const lastMonth = allCalc[allCalc.length - 1] || { rec: 0, pagar: 0, saldo: 0 };
 
   const chartData = {
@@ -757,17 +757,17 @@ function OverviewPage({ data, openMonth }: { data: AppData; openMonth: (m: strin
             </div>
           </CardHeader>
           <div className="h-[300px] mt-4">
-            <Line 
-              data={chartData} 
-              options={{ 
-                responsive: true, 
+            <Line
+              data={chartData}
+              options={{
+                responsive: true,
                 maintainAspectRatio: false,
-                scales: { 
+                scales: {
                   y: { grid: { color: 'rgba(255,255,255,0.03)' }, border: { display: false } },
                   x: { grid: { display: false } }
                 },
                 plugins: { legend: { display: false } }
-              }} 
+              }}
             />
           </div>
         </ShadcnCard>
@@ -778,8 +778,8 @@ function OverviewPage({ data, openMonth }: { data: AppData; openMonth: (m: strin
           </CardHeader>
           <div className="space-y-4 mt-4">
             {allCalc.slice(-5).reverse().map((m) => (
-              <div 
-                key={m.mes} 
+              <div
+                key={m.mes}
                 onClick={() => openMonth(m.mes)}
                 className="flex items-center justify-between p-3 rounded-xl bg-background border border-border hover:border-accent-purple/30 cursor-pointer transition-all group"
               >
@@ -1112,7 +1112,7 @@ function GraficosTab({ data, currentMonth, calc }: any) {
   const m = data.mesData[currentMonth];
   const fixas = m.fixas.reduce((s: number, r: any) => s + n(r.val), 0);
   const variaveis = m.variaveis.reduce((s: number, r: any) => s + n(r.val), 0);
-  
+
   const doughnutData = {
     labels: ['Custos Fixos', 'Custos Variáveis', 'Saldo Livre'],
     datasets: [{
@@ -1160,8 +1160,8 @@ function HistoricoPage({ data, openMonth }: any) {
       <h3 className="text-2xl font-black tracking-tight">Histórico de Fluxo</h3>
       <div className="grid grid-cols-1 gap-4">
         {allCalc.reverse().map((m: any) => (
-          <div 
-            key={m.mes} 
+          <div
+            key={m.mes}
             onClick={() => openMonth(m.mes)}
             className="p-4 rounded-2xl bg-surface border border-border hover:border-accent-purple/30 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
           >
@@ -1228,15 +1228,15 @@ function MetasPage({ data, updateData }: any) {
           <Plus size={18} className="mr-2" /> Nova Meta
         </Button>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {data.metas.map((m: Meta, i: number) => {
           const perc = m.total ? Math.min(100, (m.guardei / m.total) * 100) : 0;
           return (
             <ShadcnCard key={i} className="bg-surface border-border p-6 hover:border-accent-purple/30 transition-all">
               <div className="flex justify-between items-start mb-6">
-                <input 
-                  value={m.desc} 
+                <input
+                  value={m.desc}
                   onChange={e => updateMeta(i, 'desc', e.target.value)}
                   className="bg-transparent border-none text-xl font-black focus:ring-0 p-0 w-full"
                 />
@@ -1244,23 +1244,23 @@ function MetasPage({ data, updateData }: any) {
                   <Trash2 size={16} />
                 </Button>
               </div>
-              
+
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-[10px] font-black text-text-dark uppercase tracking-widest mb-1">Meta Total</p>
-                    <input 
-                      type="number" 
-                      value={m.total || ''} 
+                    <input
+                      type="number"
+                      value={m.total || ''}
                       onChange={e => updateMeta(i, 'total', e.target.value)}
                       className="bg-background border border-border rounded-lg px-3 py-2 w-full font-bold text-sm"
                     />
                   </div>
                   <div>
                     <p className="text-[10px] font-black text-text-dark uppercase tracking-widest mb-1">Já Guardado</p>
-                    <input 
-                      type="number" 
-                      value={m.guardei || ''} 
+                    <input
+                      type="number"
+                      value={m.guardei || ''}
                       onChange={e => updateMeta(i, 'guardei', e.target.value)}
                       className="bg-background border border-border rounded-lg px-3 py-2 w-full font-bold text-sm text-accent-purple"
                     />
@@ -1273,9 +1273,9 @@ function MetasPage({ data, updateData }: any) {
                     <span className="text-accent-purple">{perc.toFixed(1)}%</span>
                   </div>
                   <div className="h-3 bg-background rounded-full overflow-hidden border border-border">
-                    <div 
-                      className="h-full bg-accent-purple shadow-[0_0_15px_rgba(124,58,237,0.6)] transition-all duration-1000" 
-                      style={{ width: `${perc}%` }} 
+                    <div
+                      className="h-full bg-accent-purple shadow-[0_0_15px_rgba(124,58,237,0.6)] transition-all duration-1000"
+                      style={{ width: `${perc}%` }}
                     />
                   </div>
                   <p className="text-[10px] text-text-dark font-bold text-right">Faltam {fmt(Math.max(0, m.total - m.guardei))}</p>
