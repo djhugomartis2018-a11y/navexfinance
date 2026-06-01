@@ -137,25 +137,8 @@ const defaultMetas = (): Meta[] => [
 ];
 
 const getDefaultData = (): AppData => ({
-  months: ['Jan/2024', 'Fev/2024'],
-  mesData: {
-    'Jan/2024': {
-      receitas: [{ desc: 'Salário', val: 5000 }],
-      fixas: [
-        { desc: 'Aluguel', dia: 5, val: 1200, pago: true },
-        { desc: 'Internet', dia: 10, val: 100, pago: true }
-      ],
-      variaveis: [{ desc: 'Lazer', val: 800 }]
-    },
-    'Fev/2024': {
-      receitas: [{ desc: 'Salário', val: 5200 }],
-      fixas: [
-        { desc: 'Aluguel', dia: 5, val: 1200, pago: false },
-        { desc: 'Internet', dia: 10, val: 100, pago: false }
-      ],
-      variaveis: [{ desc: 'Restaurante', val: 400 }]
-    }
-  },
+  months: [],
+  mesData: {},
   metas: defaultMetas(),
   parcelamentos: []
 });
