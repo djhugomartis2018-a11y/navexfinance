@@ -42,6 +42,7 @@ import {
   SidebarGroupLabel,
   SidebarGroupContent,
   SidebarInput,
+  useSidebar,
 } from './components/ui/sidebar';
 import { useIsMobile } from './components/ui/use-mobile';
 import { Button } from './components/ui/button';
@@ -440,7 +441,7 @@ export default function App() {
       <SidebarProvider>
         <Toaster richColors position="top-right" />
         <div className="flex w-full min-h-screen bg-background text-foreground selection:bg-accent-purple/30">
-          <Sidebar className="border-r border-border" collapsible={isMobile ? "icon" : "none"}>
+          <Sidebar className="border-r border-border" collapsible={isMobile ? "offcanvas" : "none"}>
             <SidebarHeader className="px-6 py-8">
               <div className="flex flex-col items-center justify-center w-full space-y-4">
                 <div className="relative">
@@ -577,7 +578,7 @@ export default function App() {
               </div>
             </header>
 
-            <main className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full">
+            <main className="flex-1 p-3 md:p-8 max-w-7xl mx-auto w-full pb-24 md:pb-8">
               {currentPage === 'overview' && <OverviewPage data={data} openMonth={openMonth} />}
               {currentPage === 'mes' && currentMonth && (
                 <MesPage
@@ -612,6 +613,7 @@ export default function App() {
               {currentPage === 'plano' && <ManagePlanPage />}
               {currentPage === 'perfil' && <ProfilePage />}
             </main>
+            <MobileBottomNav currentPage={currentPage} showPage={showPage} currentMonth={currentMonth} />
           </SidebarInset>
         </div>
 
@@ -665,10 +667,10 @@ function StatCard({ label, value, icon: Icon, color, trend }: any) {
 
   return (
     <ShadcnCard className="bg-surface border-border overflow-hidden hover:border-accent-purple/30 transition-all group">
-      <CardContent className="p-6">
-        <div className="flex justify-between items-start mb-4">
+      <CardContent className="p-4 md:p-6">
+        <div className="flex justify-between items-start mb-3 md:mb-4">
           <div className={`p-2 rounded-lg ${colors[color] || colors.dim}`}>
-            <Icon size={20} />
+            <Icon size={18} />
           </div>
           {trend && (
             <span className={`text-[10px] font-black px-2 py-1 rounded-full ${trend > 0 ? 'bg-accent-purple/10 text-accent-purple' : 'bg-red-bg text-red'}`}>
@@ -677,8 +679,8 @@ function StatCard({ label, value, icon: Icon, color, trend }: any) {
           )}
         </div>
         <div>
-          <p className="text-[10px] font-black text-text-dark uppercase tracking-widest mb-1">{label}</p>
-          <h3 className="text-2xl font-black tracking-tight group-hover:translate-x-1 transition-transform">{value}</h3>
+          <p className="text-[9px] md:text-[10px] font-black text-text-dark uppercase tracking-widest mb-1">{label}</p>
+          <h3 className="text-lg md:text-2xl font-black tracking-tight group-hover:translate-x-1 transition-transform">{value}</h3>
         </div>
       </CardContent>
     </ShadcnCard>
@@ -738,7 +740,7 @@ function OverviewPage({ data, openMonth }: { data: AppData; openMonth: (m: strin
               <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-red-500" /> SAÍDAS</div>
             </div>
           </CardHeader>
-          <div className="h-[300px] mt-4">
+          <div className="h-[200px] md:h-[300px] mt-4">
             <Line
               data={chartData}
               options={{
@@ -787,7 +789,7 @@ function MesPage({ data, currentMonth, currentTab, setCurrentTab, updateData }: 
     <div className="animate-fadeIn">
       <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h2 className="text-4xl font-black tracking-tighter">{currentMonth}</h2>
+          <h2 className="text-2xl md:text-4xl font-black tracking-tighter">{currentMonth}</h2>
           <p className="text-text-dim font-medium mt-1">Gerenciamento detalhado do seu fluxo de caixa</p>
         </div>
         <div className="flex bg-surface p-1 rounded-xl border border-border">
@@ -1156,16 +1158,16 @@ function HistoricoPage({ data, openMonth }: any) {
                 <p className="text-xs text-text-dim">Economia: {m.rec ? ((m.saldo / m.rec) * 100).toFixed(1) : 0}%</p>
               </div>
             </div>
-            <div className="flex items-center gap-8 px-4">
-              <div className="text-right">
+            <div className="flex items-center gap-3 sm:gap-8 px-2 sm:px-4 shrink-0">
+              <div className="text-right hidden sm:block">
                 <p className="text-[10px] font-black text-text-dark uppercase">Entradas</p>
                 <p className="text-sm font-bold text-blue">{fmt(m.rec)}</p>
               </div>
-              <div className="text-right">
+              <div className="text-right hidden sm:block">
                 <p className="text-[10px] font-black text-text-dark uppercase">Saídas</p>
                 <p className="text-sm font-bold text-red-400">{fmt(m.pagar)}</p>
               </div>
-              <div className="text-right min-w-[100px]">
+              <div className="text-right">
                 <p className="text-[10px] font-black text-text-dark uppercase">Saldo</p>
                 <p className="text-sm font-black text-accent-purple">{fmt(m.saldo)}</p>
               </div>
@@ -1175,6 +1177,57 @@ function HistoricoPage({ data, openMonth }: any) {
         ))}
       </div>
     </div>
+  );
+}
+
+// MOBILE BOTTOM NAV
+function MobileBottomNav({ currentPage, showPage, currentMonth }: {
+  currentPage: string;
+  showPage: (p: string) => void;
+  currentMonth: string | null;
+}) {
+  const { toggleSidebar } = useSidebar();
+
+  const items = [
+    { id: 'overview',   Icon: LayoutGrid,  label: 'Painel'   },
+    { id: 'mes',        Icon: Calendar,    label: 'Meses'    },
+    { id: 'historico',  Icon: TrendingUp,  label: 'Análises' },
+    { id: 'metas',      Icon: Target,      label: 'Metas'    },
+    { id: 'perfil',     Icon: User,        label: 'Perfil'   },
+  ];
+
+  return (
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-50 md:hidden border-t border-border bg-background/95 backdrop-blur-md"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+    >
+      <div className="flex items-center justify-around px-1 py-1">
+        {items.map(({ id, Icon, label }) => {
+          const active = currentPage === id;
+          return (
+            <button
+              key={id}
+              onClick={() => {
+                if (id === 'mes') {
+                  if (currentMonth) showPage('mes');
+                  else toggleSidebar();
+                } else {
+                  showPage(id);
+                }
+              }}
+              className={`flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-all flex-1 max-w-[72px] border-none bg-transparent ${
+                active ? 'text-accent-purple' : 'text-text-dark'
+              }`}
+            >
+              <div className={`p-1.5 rounded-lg transition-all ${active ? 'bg-accent-purple/15' : ''}`}>
+                <Icon size={20} />
+              </div>
+              <span className="text-[9px] font-bold tracking-wide leading-none">{label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </nav>
   );
 }
 

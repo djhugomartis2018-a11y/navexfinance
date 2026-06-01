@@ -190,12 +190,6 @@ textarea {
 
 /* === BOTÕES RESPONSIVOS === */
 @media (max-width: 767px) {
-  button {
-    width: 100%;
-    min-height: 48px;
-    font-size: 15px;
-  }
-  
   /* Botões em grupo ficam empilhados */
   .button-group {
     display: flex;
@@ -278,23 +272,6 @@ textarea {
   }
 }
 
-/* === SPACING UTILITÁRIOS === */
-@media (max-width: 767px) {
-  .p-8 { padding: 16px !important; }
-  .p-4 { padding: 12px !important; }
-  .gap-8 { gap: 16px !important; }
-  .gap-4 { gap: 12px !important; }
-  .mb-8 { margin-bottom: 16px !important; }
-  .mb-4 { margin-bottom: 12px !important; }
-}
-
-/* === TIPOGRAFIA RESPONSIVA === */
-@media (max-width: 767px) {
-  h1 { font-size: 24px !important; }
-  h2 { font-size: 20px !important; }
-  h3 { font-size: 18px !important; }
-  h4 { font-size: 16px !important; }
-}
 
 /* === SCROLL SUAVE === */
 html {
